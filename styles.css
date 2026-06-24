@@ -1,0 +1,50 @@
+*{
+    font-size: 15px;
+}
+
+title {
+    font-size: 32rem;
+}
+
+/* Menú principal en fila */
+.menu-principal {
+  list-style: none;
+  display: flex;
+  background-color: #333;
+  padding: 0;
+  margin: 0;
+}
+
+.menu-principal > li > a {
+  display: block;
+  color: white;
+  padding: 15px 20px;
+  text-decoration: none;
+}
+
+/* Ocultar el submenú por defecto */
+.menu-principal .submenu {
+  display: none;
+  position: absolute;
+  background-color: #444;
+  list-style: none;
+  padding: 0;
+  min-width: 160px;
+}
+
+/* Mostrar el submenú al pasar el mouse */
+.menu-principal .dropdown:hover .submenu {
+  display: block;
+}
+
+/* Estilos de los enlaces del submenú */
+.submenu li a {
+  color: white;
+  padding: 12px 16px;
+  display: block;
+  text-decoration: none;
+}
+
+.submenu li a:hover {
+  background-color: #555;
+}
