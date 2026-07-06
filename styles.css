@@ -124,3 +124,12 @@ body {
 
 /* Barra lateral*/
 
+/* ================================
+   TEST
+================================ */
+
+.Borde_lul1 {
+isolation: isolate;
+display: block;
+position: relative;
+}
