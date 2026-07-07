@@ -1,3 +1,6 @@
+body{
+  display: 0;
+}
 .Borde_lul1 {
 isolation: isolate;
 display: block;
