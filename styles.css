@@ -124,6 +124,46 @@ body {
 
 /* Barra lateral*/
 
+/* Estilos básicos para el Sidebar */
+.sidebar {
+  height: 100%;
+  width: 250px;
+  position: fixed;
+  top: 0;
+  left: -250px; /* Oculto a la izquierda por defecto */
+  background-color: #111;
+  padding-top: 60px;
+  transition: 0.3s; /* Animación de deslizamiento */
+  z-index: 1;
+}
+
+/* Clase que se agregará con JavaScript para abrirlo */
+.sidebar.activo {
+  left: 0;
+}
+
+/* Estilos de los enlaces */
+.sidebar a {
+  padding: 10px 15px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+}
+
+/* Botón de cierre dentro del sidebar */
+.sidebar .close-btn {
+  position: absolute;
+  top: 20px;
+  right: 25px;
+  font-size: 36px;
+  background: none;
+  border: none;
+  color: #818181;
+  cursor: pointer;
+}
+
+
 /* ================================
    TEST
 ================================ */
