@@ -168,6 +168,11 @@ body {
    TEST
 ================================ */
 
+.botonAbrir {
+  display: flexbox;
+  flex-direction: row;
+}
+
 .Borde_lul1 {
 isolation: isolate;
 display: block;
