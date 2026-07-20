@@ -118,6 +118,32 @@ body {
   }
 }
 
+/* Botón fijo también en móvil */
+@media (max-width: 767px) {
+  #botonAbrir {
+    position: fixed;
+    top: 12px;
+    left: 12px;
+    z-index: 9999;
+    background-color: #2c3e50;
+    color: #fff;
+    border: none;
+    padding: 8px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  #botonAbrir h2 {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1;
+    font-weight: 600;
+  }
+}
+
 
 /* ================================
    DESKTOP (≥ 1024px)
@@ -190,5 +216,31 @@ body {
   border: none;
   color: #818181;
   cursor: pointer;
+}
+
+/* Botón de apertura fijo en esquina para escritorio */
+@media (min-width: 768px) {
+  #botonAbrir {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 9999;
+    background-color: #2c3e50;
+    color: #fff;
+    border: none;
+    padding: 10px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  #botonAbrir h2 {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1;
+    font-weight: 600;
+  }
 }
 
