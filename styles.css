@@ -188,18 +188,3 @@ body {
     font-weight: 600;
   }
 }
-
-/* ================================
-   TEST
-================================ */
-
-.botonAbrir {
-  display: flexbox;
-  flex-direction: row;
-}
-
-.Borde_lul1 {
-isolation: isolate;
-display: block;
-position: relative;
-}
