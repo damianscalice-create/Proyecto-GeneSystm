@@ -35,19 +35,29 @@
                 <option value="value5">Ajedrez</option>
             </select>
             <select name="select" id="Concursantes">
-                <option value="">2</option>
-                <option value="">4</option>
-                <option value="">6</option>
-                <option value="">8</option>
-                <option value="">12</option>
-                <option value="">16</option>
-                <option value="">18</option>
-                <option value="">20</option>
-                <option value="">24</option>
+                <option value="2">2</option>
+                <option value="4">4</option>
+                <option value="6">6</option>
+                <option value="8">8</option>
+                <option value="12">12</option>
+                <option value="16">16</option>
+                <option value="18">18</option>
+                <option value="20">20</option>
+                <option value="24">24</option>
             </select>
         </div>
+
+        <button type="button" id="confirmarTorneo" class="btn-confirmar">Confirmar selección</button>
+
+        <div id="resultadoTorneo" class="resultado-torneo" aria-live="polite">
+            <div class="resultado-icon">🏆</div>
+            <h3 id="resultadoTitulo">Tu torneo está listo</h3>
+            <p id="resultadoTexto">Selecciona un deporte y la cantidad de participantes para ver la fecha y la hora.</p>
+        </div>
+
+        <div id="mensajeConfirmacion" class="mensaje-confirmacion" aria-live="polite"></div>
     </div>
 
-    <script src="script.js"></script>
+    <script src="js/script.js"></script>
 </body>
 </html>

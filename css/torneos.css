@@ -26,6 +26,80 @@ body{
   gap: 15px;
 }
 
+.resultado-torneo {
+  margin-top: 20px;
+  width: 100%;
+  max-width: 420px;
+  padding: 18px 20px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #2c3e50, #34495e);
+  color: #fff;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.16);
+  opacity: 0;
+  transform: translateY(15px) scale(0.96);
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.4s ease;
+}
+
+.resultado-torneo.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  max-height: 220px;
+}
+
+.resultado-icon {
+  font-size: 1.4rem;
+  margin-bottom: 6px;
+}
+
+.resultado-torneo h3 {
+  margin: 0 0 8px;
+  font-size: 1.1rem;
+}
+
+.resultado-torneo p {
+  margin: 0;
+  line-height: 1.5;
+}
+
+.btn-confirmar {
+  margin-top: 16px;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 999px;
+  background: #2c3e50;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 600;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.btn-confirmar:hover {
+  background: #34495e;
+  transform: translateY(-2px);
+}
+
+.mensaje-confirmacion {
+  margin-top: 12px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: #eaf7ea;
+  color: #245b2a;
+  border: 1px solid #b9dfbb;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: all 0.3s ease;
+  max-height: 0;
+  overflow: hidden;
+}
+
+.mensaje-confirmacion.visible {
+  opacity: 1;
+  transform: translateY(0);
+  max-height: 120px;
+}
+
 .Borde_lul1 {
 isolation: isolate;
 display: block;
@@ -266,6 +340,50 @@ body {
     font-size: 1rem;
     line-height: 1;
     font-weight: 600;
+  }
+}
+
+textarea {
+  resize: none;
+  width: 100%;
+  min-height: 90px;
+  padding: 10px 12px;
+  border: 1px solid #d0d7de;
+  border-radius: 8px;
+  font: inherit;
+}
+
+.bod {
+  width: min(90%, 700px);
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 24px;
+  margin: 24px auto;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.card-evento {
+  background: linear-gradient(135deg, #2c3e50, #34495e);
+  color: #ffffff;
+  width: 100%;
+  min-height: 120px;
+  padding: 20px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  gap: 10px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+@media (max-width: 600px) {
+  .bod {
+    grid-template-columns: 1fr;
   }
 }
 

@@ -1,0 +1,1 @@
+const user = prompt("Ingrese su usuario")

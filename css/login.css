@@ -88,6 +88,11 @@ body {
   .main-content h1 {
     font-size: 1.8rem;
   }
+
+  .bombilla{
+    padding: 10px;
+    width: 25px;
+  }
 }
 
 
@@ -99,7 +104,7 @@ body {
 @media (min-width: 1024px) {
 
   .sidebar {
-    width: 280px;
+    width: 240px;
     padding: 24px;
   }
 
@@ -120,79 +125,19 @@ body {
   .main-content h1 {
     font-size: 2rem;
   }
-}
 
-/* Barra lateral*/
-
-/* Estilos básicos para el Sidebar */
-.sidebar {
-  height: 100%;
-  width: 250px;
-  position: fixed;
-  top: 0;
-  left: -250px; /* Oculto a la izquierda por defecto */
-  background-color: #111;
-  padding-top: 60px;
-  transition: 0.3s; /* Animación de deslizamiento */
-  z-index: 1;
-}
-
-/* Clase que se agregará con JavaScript para abrirlo */
-.sidebar.activo {
-  left: 0;
-}
-
-/* Estilos de los enlaces */
-.sidebar a {
-  padding: 10px 15px;
-  text-decoration: none;
-  font-size: 25px;
-  color: #818181;
-  display: block;
-}
-
-/* Botón de cierre dentro del sidebar */
-.sidebar .close-btn {
-  position: absolute;
-  top: 20px;
-  right: 25px;
-  font-size: 36px;
-  background: none;
-  border: none;
-  color: #818181;
-  cursor: pointer;
-}
-
-/* Botón de apertura fijo en esquina para escritorio */
-@media (min-width: 768px) {
-  #botonAbrir {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    z-index: 9999;
-    background-color: #2c3e50;
-    color: #fff;
-    border: none;
-    padding: 10px 14px;
-    border-radius: 6px;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
+  .bombilla{
+    padding: 10rem;
+    width: 25rem;
   }
 
-  #botonAbrir h2 {
-    margin: 0;
-    font-size: 1rem;
-    line-height: 1;
-    font-weight: 600;
-  }
 }
 
-.texto_titulo{
-  display: flexbox;
-  justify-content: center;
-  align-items: center;
-  
-  height: 200px;
+.caja{
+  width: 300px;
+  height: 150px;
+  background-color: #add8e6;
+  border: 2px solid #000000;
+  padding: 20px;
+  margin: 10px;
 }
