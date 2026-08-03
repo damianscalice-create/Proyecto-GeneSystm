@@ -1,3 +1,13 @@
+.titulo{
+  font-size: 6rem;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+}
+
 /* ================================
    BASE — MÓVIL (< 768px)
    La sidebar queda arriba, como un menú de navegación
