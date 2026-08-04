@@ -20,7 +20,7 @@ const resultadoTexto = document.getElementById('resultadoTexto');
 const botonConfirmar = document.getElementById('confirmarTorneo');
 const mensajeConfirmacion = document.getElementById('mensajeConfirmacion');
 
-const datosTorneos = {
+/*const datosTorneos = {
     value1: {
         2: { titulo: 'Torneo de Fútbol', mensaje: 'La jornada comenzará con un encuentro inicial muy dinámico.', fecha: 'Sábado 9:00', hora: '09:00' },
         4: { titulo: 'Torneo de Fútbol', mensaje: 'Se organizará una llave rápida para que todos jueguen.', fecha: 'Domingo 12:30', hora: '12:30' },
@@ -47,6 +47,7 @@ const datosTorneos = {
         6: { titulo: 'Torneo de Ajedrez', mensaje: 'Habrá una fase más larga para pensar cada movimiento.', fecha: 'Jueves 20:00', hora: '20:00' }
     }
 };
+*/
 
 function mostrarResultadoTorneo() {
     if (!resultadoTorneo || !resultadoTitulo || !resultadoTexto || !deporteSelect || !cantidadSelect) {

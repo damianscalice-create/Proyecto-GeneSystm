@@ -5,6 +5,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="css/styles.css">
         <link rel="icon" href="assets/bombilla.png" type="image/x-icon">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
         <title>GeneSys</title>
     </head>
     <body>
@@ -13,7 +16,7 @@
         </button>
         
         <aside id="miSidebar" class="sidebar">
-            <button id="botonCerrar" class="close-btn"></button>
+            <button id="botonCerrar" class="close-btn" aria-label="Cerrar sidebar" title="Cerrar">&times;</button>
             
             <ul>
                 <li><a href="index.html">Inicio</a></li>
@@ -29,8 +32,14 @@
                 <h2>Bienvenido</h2>
                 <p>Esta es una caja visible en pantalla.</p>
             </div>
+
+
+            <button id="abrirTorneo">Crear un torneo</button>
         </main>
 
+        <footer>
+            <img src="" alt="">
+        </footer>
         <script src="js/script.js"></script>
     </body>
 </html>

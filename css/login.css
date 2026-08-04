@@ -1,3 +1,44 @@
+body{
+  margin: 0;
+  font-family: Jost;
+  background: #f4f4f4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.contenedorLogin{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.cajaLogin{
+  width: 300px;
+  height: 150px;
+  background-color: #381dba;
+  border: 2px solid #4d22da;
+  padding: 20px;
+  margin: 10px;
+  display: flexbox;
+  align-items: center;
+  justify-content: center;
+}
+
+.bombilla{
+  width: 70px;
+  height: 70px;
+  object-fit: contain;
+  margin-bottom: 15px;
+}
+
+input, button{
+  width: 100%;
+  height: 10px;
+  margin-top: 10px;
+  box-sizing: border-box;
+}
 /* ================================
    BASE — MÓVIL (< 768px)
    La sidebar queda arriba, como un menú de navegación
@@ -12,38 +53,6 @@
 body {
   font-family: sans-serif;
   min-height: 100vh;
-}
-
-.sidebar {
-  width: 100%;          /* ocupa todo el ancho en móvil */
-  background-color: #2c3e50;
-  color: white;
-  padding: 16px;
-}
-
-.sidebar h1 {
-  margin-bottom: 12px;
-  font-size: 1.2rem;
-}
-
-.sidebar ul {
-  list-style: none;
-  display: flex;        /* links en fila en móvil */
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.sidebar ul li a {
-  display: block;
-  color: white;
-  text-decoration: none;
-  padding: 8px 12px;
-  border-radius: 4px;
-  font-size: 0.9rem;
-}
-
-.sidebar ul li a:hover {
-  background-color: #34495e;
 }
 
 .main-content {
@@ -69,17 +78,6 @@ body {
     display: flex;
   }
 
-  .sidebar {
-    width: 220px;
-    min-height: 100vh;
-    flex-shrink: 0;
-  }
-
-  .sidebar ul {
-    flex-direction: column;   /* links en columna */
-    gap: 4px;
-  }
-
   .main-content {
     flex: 1;
     padding: 30px;
@@ -103,21 +101,6 @@ body {
 
 @media (min-width: 1024px) {
 
-  .sidebar {
-    width: 240px;
-    padding: 24px;
-  }
-
-  .sidebar h1 {
-    font-size: 1.5rem;
-    margin-bottom: 24px;
-  }
-
-  .sidebar ul li a {
-    padding: 10px 16px;
-    font-size: 1rem;
-  }
-
   .main-content {
     padding: 40px;
   }
@@ -131,13 +114,4 @@ body {
     width: 25rem;
   }
 
-}
-
-.caja{
-  width: 300px;
-  height: 150px;
-  background-color: #add8e6;
-  border: 2px solid #000000;
-  padding: 20px;
-  margin: 10px;
 }
