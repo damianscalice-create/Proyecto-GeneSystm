@@ -92,7 +92,7 @@ body{
 }
 
 .btn-confirmar:hover {
-  background: #d2760c;
+  background: #d3d1ce;
   transform: translateY(-2px);
 }
 
@@ -166,12 +166,12 @@ body {
 }
 
 .sidebar ul li a:hover {
-  background-color: #b7801a;
+  background-color: #501b5db5; /* Color de los botones */
 }
 
 .main-content {
   padding: 20px;
-  background-color: #c62525;
+  background-color: #dbb3b3;
   min-height: 100vh;
 }
 
@@ -291,7 +291,7 @@ body {
   position: fixed;
   top: 0;
   left: -250px; /* Oculto a la izquierda por defecto */
-  background-color: #be3838;
+  background-color: #5b4b90; /* Color para el fondo */
   padding-top: 60px;
   transition: 0.3s; /* Animación de deslizamiento */
   z-index: 1;
@@ -319,7 +319,7 @@ body {
   font-size: 36px;
   background: none;
   border: none;
-  color: #b13838;
+  color: #e7e3e3; /* Color del boton de cierre del sidebar */
   cursor: pointer;
 }
 
@@ -367,7 +367,7 @@ textarea {
 
 .card-evento {
   background: linear-gradient(135deg, #2c3e50, #34495e);
-  color: #8c3636;
+  color: #cd0b0b;
   width: 100%;
   min-height: 120px;
   padding: 20px;
