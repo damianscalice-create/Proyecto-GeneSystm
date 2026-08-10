@@ -19,11 +19,6 @@
   height: 200px;
 }
 
-.bloque-texto2, .bloque-texto1{ /* coma para ambas clases */
-  background-color: #4116cd;
-}
-
-
 #botonAbrir {
   background-color: transparent;
   color: #fff;
@@ -89,31 +84,36 @@ body {
   margin-bottom: 12px;
 }
 
-.bloque-texto1{
-  display: flexbox;
+.texto-doble {
+  display: flex;
+  flex-direction: column;
   justify-content: center;
-  text-align: center;
-  width: 250px;
-  height: 250px;
-
-  border-radius: 20px;
-  padding: 15px;
-  margin: 20px;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  margin: 0 auto;
 }
 
-.bloque-texto2{
-  justify-content: right;
+.bloque-texto1,
+.bloque-texto2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   text-align: center;
-  width: 500px;
-  height: 250px;
+  width: min(90%, 320px);
+  min-height: 250px;
   border-radius: 20px;
-  padding: 15px;
-  margin: 20px;
+  padding: 20px;
+  margin: 0;
+  background-color: #4116cd;
+  color: #fff;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
 }
 
-.bloque-texto2 p{
-  font-family: Jost;
-  size: 20px;
+.bloque-texto1 h2,
+.bloque-texto2 h2 {
+  margin-bottom: 12px;
 }
 
 /* ================================
@@ -147,36 +147,16 @@ body {
     font-size: 1.8rem;
   }
 
-  .texto-doble{
-    display: flex;
+  .texto-doble {
+    flex-direction: row;
+    align-items: stretch;
+    gap: 24px;
   }
 
-  .bloque-texto1{
-    justify-content: center;
-    text-align: center;
-    width: 423px;
-    height: 300px;
-    border-radius: 20px;
-    padding: 15px;
-    margin: 20px;
-  }
-
-  .bloque-texto2{
-    justify-content: center;
-    text-align: center;
-    width: 423px;
-    height: 300px;
-    border-radius: 20px;
-    padding: 15px;
-    margin: 20px;
-  }
-
-  .bloque-texto1{
-    font-family: Jost;
-    font-size: larger;
-  }
-
+  .bloque-texto1,
   .bloque-texto2 {
+    width: min(45%, 423px);
+    min-height: 300px;
     font-family: Jost;
     font-size: larger;
   }
@@ -214,42 +194,15 @@ body {
     font-size: 2rem;
   }
 
-  .bloque-texto1{
-    margin: 150px;
-    padding-right: 32px;
-  }
-
-
-  .texto-doble{
-    display: flex;
+  .texto-doble {
+    gap: 32px;
     font-size: larger;
   }
 
-  .bloque-texto1{
-    justify-content: center;
-    text-align: center;
-    width: 850px;
-    height: 250px;
-    border-radius: 20px;
-    padding: 15px;
-    margin: 20px;
-  }
-
-  .bloque-texto2{
-    justify-content: center;
-    text-align: center;
-    width: 850px;
-    height: 250px;
-    border-radius: 20px;
-    padding: 15px;
-    margin: 20px;
-  }
-
-  .bloque-texto1{
-    font-family: Jost;
-  }
-
+  .bloque-texto1,
   .bloque-texto2 {
+    width: min(45%, 850px);
+    min-height: 250px;
     font-family: Jost;
   }
 
