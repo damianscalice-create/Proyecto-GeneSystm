@@ -25,34 +25,65 @@
 
     <div class="Borde_lol1">
         <h2 class="titulo">Elije un deporte</h2>
-        <div class="Borde_lol2">
-            <p><label for=""><input type="text" name="nombreEvento" placeholder="Nombre del evento" class="evento"></label></p>
-            <select name="select" id="Juegos">
-                <option value="value1" selected>Futbol</option>
+        <div class="caja">
+            <p><label for="nombreEvento"><input type="text" id="nombreEvento" name="nombreEvento" placeholder="Nombre del evento" class="evento"></label></p>
+            <select name="select" id="deporte">
+                <option value="" selected disabled>Selecciona un deporte</option>
+                <option value="value1">Futbol</option>
                 <option value="value2">Futbol Sala</option>
                 <option value="value3">Tennis</option>
                 <option value="value4">E-sports</option>
                 <option value="value5">Ajedrez</option>
             </select>
-            <select name="select" id="Concursantes">
-                <option value="2">2</option>
-                <option value="4">4</option>
-                <option value="6">6</option>
-                <option value="8">8</option>
-                <option value="12">12</option>
-                <option value="16">16</option>
-                <option value="18">18</option>
-                <option value="20">20</option>
-                <option value="24">24</option>
-            </select>
+            <div class="deporte-content active" id="contenedor-futbol">
+                <select name="futbol" id="futbol">
+                    <option value="" selected disabled>Seleccione el genero:</option>
+                    <option value="male">Masculino</option>
+                    <option value="fem">Femenino</option>
+                </select>
+            </div>
+            <div class="deporte-content" id="contenedor-futSala">
+                <select name="futsala" id="futSala">
+                    <option value="" selected disabled>Seleccione el genero:</option>
+                    <option value="male">Masculino</option>
+                    <option value="fem">Femenino</option>
+                </select>
+            </div>
+            <div class="deporte-content" id="contenedor-tennis">
+                <select name="tennis" id="tennis">
+                    <option value="" selected disabled>Seleccione el genero:</option>
+                    <option value="male">Masculino</option>
+                    <option value="fem">Femenino</option>
+                </select>
+            </div>
+            <div class="deporte-content" id="contenedor-Esports">
+                <select name="esport" id="eSports">
+                    <option value="" selected disabled>Seleccione un juego:</option>
+                    <option value="">League of Legends</option>
+                    <option value="">DOTA 2</option>
+                    <option value="">CS: 2</option>
+                    <option value="">Valorant</option>
+                    <option value="">Fortnite</option>
+                    <option value="">Rocket League</option>
+                </select>
+            </div>
+            <div class="deporte-content" id="contenedor-mental">
+                <select name="" id="">
+                    <option value="" selected disabled>Seleccione uno:</option>
+                    <option value="">Ajedrez</option>
+                    <option value="">Damas</option>
+                    <option value="">Go</option>
+                    <option value="">Memorizacion</option>
+                </select>
+            </div>
+            <div></div>
+            <p id="contenedorCantidad" class="contenedor-cantidad">
+                <label for="cantidad">Participantes</label>
+                <input type="number" id="cantidad" class="cantidad" min="2" step="2" placeholder="2">
+            </p>
         </div>
 
         <button type="button" id="confirmarTorneo" class="btn-confirmar">Confirmar selección</button>
-
-        <div id="resultadoTorneo" class="resultado-torneo" aria-live="polite">
-            <div class="resultado-icon">🏆</div>
-            <p id="resultadoTexto">Selecciona un deporte y la cantidad de participantes para ver la fecha y la hora.</p>
-        </div>
 
         <div id="mensajeConfirmacion" class="mensaje-confirmacion" aria-live="polite"></div>
     </div>

@@ -21,7 +21,7 @@ body{
   margin-bottom: 10px;
 }
 
-.Borde_lol2 {
+.caja {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -32,14 +32,44 @@ body{
   background-color: #f9f9f9;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
-  width: 100%;
+  width: fit-content; /* se adapta: */
 }
 
-.Borde_lul2 a {
+.caja a {
   color: black;
   padding: 12px 16px;
   text-decoration: none;
   display: block;
+}
+
+.evento{
+  display: block;
+  margin: 6px;
+  padding: 12px;
+  border-radius: 8px;
+}
+
+#deporte{
+  margin: 6px;
+  padding: 8px;
+  border-radius: 10px;
+}
+
+
+.contenedor-cantidad {
+  display: none;
+  margin: 4px;
+}
+
+.contenedor-cantidad.visible {
+  display: block;
+}
+
+.cantidad{
+  margin: 4px;
+  padding: 4px;
+  width: 60px;
+  border-radius: 10px;
 }
 
 .resultado-torneo {
@@ -84,15 +114,15 @@ body{
   padding: 10px 16px;
   border: none;
   border-radius: 999px;
-  background: #b1bbc5;
-  color: #fff;
+  background: #0b11c2; /* color del boton*/
+  color: #fff; /* color de la letra */
   cursor: pointer;
   font-weight: 600;
   transition: transform 0.2s ease, background 0.2s ease;
 }
 
 .btn-confirmar:hover {
-  background: #d3d1ce;
+  background: #a26a14; /* Color de cuando pasa el mouse por el boton */
   transform: translateY(-2px);
 }
 
@@ -120,6 +150,13 @@ body{
   display: block;
 }
 
+.deporte-content.active{
+  display: block;
+}
+
+.deporte-content{
+  display: none;
+}
 
 /* ================================
    BASE — MÓVIL (< 768px)
@@ -166,12 +203,12 @@ body {
 }
 
 .sidebar ul li a:hover {
-  background-color: #501b5db5; /* Color de los botones */
+  background-color: #501b5db5; /* Color de los botones al pasar el mouse por arriba */
 }
 
 .main-content {
   padding: 20px;
-  background-color: #dbb3b3;
+  background-color: #881a1a;
   min-height: 100vh;
 }
 
@@ -238,8 +275,8 @@ body {
 
 @media (min-width: 768px) {
   #botonAbrir {
-    top: 20px;
-    left: 20px;
+    top: 16px;
+    left: 16px;
     padding: 10px 14px;
     background: transparent !important;
     background-color: transparent !important;
@@ -367,7 +404,7 @@ textarea {
 
 .card-evento {
   background: linear-gradient(135deg, #2c3e50, #34495e);
-  color: #cd0b0b;
+  color: #ffffff;
   width: 100%;
   min-height: 120px;
   padding: 20px;
