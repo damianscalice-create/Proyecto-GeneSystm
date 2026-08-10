@@ -19,6 +19,11 @@
   height: 200px;
 }
 
+.bloque-texto2, .bloque-texto1{ /* coma para ambas clases */
+  background-color: #4116cd;
+}
+
+
 #botonAbrir {
   background-color: transparent;
   color: #fff;
@@ -92,7 +97,6 @@ body {
   height: 250px;
 
   border-radius: 20px;
-  background-color: #5b4b90;
   padding: 15px;
   margin: 20px;
 }
@@ -103,7 +107,6 @@ body {
   width: 500px;
   height: 250px;
   border-radius: 20px;
-  background-color: #5b4b90;
   padding: 15px;
   margin: 20px;
 }
@@ -154,7 +157,6 @@ body {
     width: 423px;
     height: 300px;
     border-radius: 20px;
-    background-color: #5b4b90;
     padding: 15px;
     margin: 20px;
   }
@@ -165,7 +167,6 @@ body {
     width: 423px;
     height: 300px;
     border-radius: 20px;
-    background-color: #5b4b90;
     padding: 15px;
     margin: 20px;
   }
@@ -221,15 +222,15 @@ body {
 
   .texto-doble{
     display: flex;
+    font-size: larger;
   }
 
   .bloque-texto1{
     justify-content: center;
     text-align: center;
-    width: 500px;
+    width: 850px;
     height: 250px;
     border-radius: 20px;
-    background-color: #5b4b90;
     padding: 15px;
     margin: 20px;
   }
@@ -237,10 +238,9 @@ body {
   .bloque-texto2{
     justify-content: center;
     text-align: center;
-    width: 500px;
+    width: 850px;
     height: 250px;
     border-radius: 20px;
-    background-color: #5b4b90;
     padding: 15px;
     margin: 20px;
   }
