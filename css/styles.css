@@ -1,55 +1,131 @@
-﻿/* ================================
-   BASE — MÓVIL (< 768px)
-   La sidebar queda arriba, como un menú de navegación
-================================ */
-
-* {
+﻿* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+html, body {
+  min-height: 100%;
+}
+
 body {
   font-family: sans-serif;
-  min-height: 100vh;
+  background-color: #f4f4f4;
+  color: #111;
+  display: flex;
+  flex-direction: column;
+}
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  width: 100%;
+  height: 68px;
+  background-color: #111111;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.header-brand {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+#botonAbrir {
+  position: static;
+  z-index: 10;
+  background-color: rgba(255, 255, 255, 0.08);
+  border: none;
+  border-radius: 6px;
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+#botonAbrir img {
+  width: 24px;
+  height: 24px;
+  display: block;
 }
 
 .sidebar {
-  width: 100%;          /* ocupa todo el ancho en móvil */
-  background-color: #d46917;
-  color: white;
-  padding: 16px;
+  position: fixed;
+  top: 68px;
+  left: -260px;
+  width: 250px;
+  height: calc(100vh - 68px);
+  background-color: #111111;
+  color: #fff;
+  padding: 20px 16px;
+  transition: left 0.3s ease;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
 }
 
-.sidebar h1 {
-  margin-bottom: 12px;
-  font-size: 1.2rem;
+.sidebar.activo {
+  left: 0;
 }
 
 .sidebar ul {
   list-style: none;
-  display: flex;        /* links en fila en móvil */
+  display: flex;
+  flex-direction: column;
   gap: 8px;
-  flex-wrap: wrap;
+  margin-top: 20px;
 }
 
 .sidebar ul li a {
   display: block;
-  color: white;
+  color: #fff;
   text-decoration: none;
-  padding: 8px 12px;
-  border-radius: 4px;
-  font-size: 0.9rem;
+  padding: 10px 12px;
+  border-radius: 6px;
+  font-size: 0.95rem;
 }
 
 .sidebar ul li a:hover {
-  background-color: #501b5db5;
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.sidebar .close-btn {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.sidebar p {
+  margin-top: auto;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.8);
 }
 
 .main-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
   padding: 20px;
   background-color: #f4f4f4;
-  min-height: 100vh;
+  min-height: calc(100vh - 68px);
+  width: 100%;
 }
 
 .main-content h1 {
@@ -57,32 +133,36 @@ body {
   margin-bottom: 12px;
 }
 
-
-/* ================================
-   TABLET (≥ 768px)
-   La sidebar pasa a columna lateral
-================================ */
+.caja {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
 
 @media (min-width: 768px) {
+  .site-header {
+    height: 78px;
+    padding: 0 24px;
+  }
 
-  body {
-    display: flex;
+  .header-brand {
+    font-size: 1.1rem;
+  }
+
+  #botonAbrir {
+    width: 48px;
+    height: 48px;
   }
 
   .sidebar {
+    top: 78px;
     width: 220px;
-    min-height: 100vh;
-    flex-shrink: 0;
-  }
-
-  .sidebar ul {
-    flex-direction: column;   /* links en columna */
-    gap: 4px;
+    height: calc(100vh - 78px);
   }
 
   .main-content {
-    flex: 1;
     padding: 30px;
+    min-height: calc(100vh - 78px);
   }
 
   .main-content h1 {
@@ -90,107 +170,17 @@ body {
   }
 }
 
-
-/* ================================
-   DESKTOP (≥ 1024px)
-   Sidebar más ancha, más espaciado
-================================ */
-
 @media (min-width: 1024px) {
-
   .sidebar {
-    width: 280px;
+    width: 260px;
     padding: 24px;
   }
 
-  .sidebar h1 {
-    font-size: 1.5rem;
-    margin-bottom: 24px;
-  }
-
   .sidebar ul li a {
-    padding: 10px 16px;
     font-size: 1rem;
   }
 
   .main-content {
     padding: 40px;
-  }
-
-  .main-content h1 {
-    font-size: 2rem;
-  }
-}
-
-/* Barra lateral*/
-
-/* Estilos básicos para el Sidebar */
-.sidebar {
-  height: 100%;
-  width: 250px;
-  position: fixed;
-  top: 0;
-  left: -250px; /* Oculto a la izquierda por defecto */
-  background-color: #111;
-  padding-top: 60px;
-  transition: 0.3s; /* Animación de deslizamiento */
-  z-index: 1;
-}
-
-/* Clase que se agregará con JavaScript para abrirlo */
-.sidebar.activo {
-  left: 0;
-}
-
-/* Estilos de los enlaces */
-.sidebar a {
-  padding: 10px 15px;
-  text-decoration: none;
-  font-size: 25px;
-  color: #818181;
-  display: block;
-}
-
-/* Botón de cierre dentro del sidebar */
-.sidebar .close-btn {
-  position: absolute;
-  top: 20px;
-  right: 25px;
-  font-size: 36px;
-  background: none;
-  border: none;
-  color: #818181;
-  cursor: pointer;
-}
-
-/* Botón de apertura fijo en esquina */
-#botonAbrir {
-  position: fixed;
-  top: 12px;
-  left: 12px;
-  z-index: 9999;
-  background-color: transparent;
-  color: #fff;
-  border: none;
-  padding: 10px 12px;
-  border-radius: 6px;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-}
-
-@media (min-width: 768px) {
-  #botonAbrir {
-    top: 20px;
-    left: 20px;
-    padding: 10px 14px;
-  }
-
-  #botonAbrir h2 {
-    margin: 0;
-    font-size: 1rem;
-    line-height: 1;
-    font-weight: 600;
   }
 }
