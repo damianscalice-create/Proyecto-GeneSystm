@@ -55,8 +55,8 @@ body {
 }
 
 #botonAbrir img {
-  width: 24px;
-  height: 24px;
+  width: auto;
+  height: auto;
   display: block;
 }
 
