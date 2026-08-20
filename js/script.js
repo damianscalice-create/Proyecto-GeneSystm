@@ -16,10 +16,17 @@ if (botonAbrir && botonCerrar && sidebar) {
 
 const botonColor = document.getElementById('botonColor');
 const cuerpo = document.body;
+const imagenBombilla = document.getElementById('imagenBombilla');
 
 if (botonColor) {
     botonColor.addEventListener('click', () => {
         const modoOscuroActivo = cuerpo.classList.toggle('modoOscuro');
         botonColor.textContent = modoOscuroActivo ? 'Modo Claro' : 'Modo Oscuro';
+
+        if (imagenBombilla) {
+            imagenBombilla.src = modoOscuroActivo
+                ? 'assets/Bombilla_on.png'
+                : 'assets/bombilla.png';
+        }
     });
 }
