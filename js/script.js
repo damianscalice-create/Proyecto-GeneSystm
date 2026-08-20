@@ -13,3 +13,13 @@ if (botonAbrir && botonCerrar && sidebar) {
         sidebar.classList.remove('activo');
     });
 }
+
+const botonColor = document.getElementById('botonColor');
+const cuerpo = document.body;
+
+if (botonColor) {
+    botonColor.addEventListener('click', () => {
+        const modoOscuroActivo = cuerpo.classList.toggle('modoOscuro');
+        botonColor.textContent = modoOscuroActivo ? 'Modo Claro' : 'Modo Oscuro';
+    });
+}

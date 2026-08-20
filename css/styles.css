@@ -8,18 +8,27 @@ html, body {
   min-height: 100%;
 }
 
+:root {
+  --color-fondo: #f4f4f4;
+  --color-texto: #111;
+}
+
 .abrirTorneo{
   display: inline-block;
   padding: 12px 24px;
   text-decoration: none; /*Le saca el subrayado*/
-  
 
+}
+
+.modoOscuro{
+  --color-fondo: #111;
+  --color-texto: #fff;
 }
 
 body {
   font-family: sans-serif;
-  background-color: #f4f4f4;
-  color: #111;
+  background-color: var(--color-fondo);
+  color: var(--color-texto);
   display: flex;
   flex-direction: column;
 }
@@ -131,7 +140,8 @@ body {
   flex-direction: column;
   gap: 20px;
   padding: 20px;
-  background-color: #f4f4f4;
+  background-color: var(--color-fondo);
+  color: var(--color-texto);
   min-height: calc(100vh - 68px);
   width: 100%;
 }
