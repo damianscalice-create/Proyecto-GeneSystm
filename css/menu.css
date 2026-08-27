@@ -1,0 +1,132 @@
+#botonAbrir {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 9999;
+  background: transparent;
+  border: none;
+  padding: 10px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#botonAbrir img {
+  width: auto;
+  height: auto;
+  display: block;
+}
+
+#botonAbrir img.cambio-bombilla {
+  animation: cambioBombilla 0.35s ease-out;
+}
+
+@keyframes cambioBombilla {
+  from {
+    opacity: 0.35;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.site-header #botonAbrir {
+  position: static;
+  z-index: 10;
+  width: 44px;
+  height: 44px;
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -260px;
+  width: 250px;
+  height: 100vh;
+  background-color: #111111;
+  color: #fff;
+  padding: 60px 16px 20px;
+  transition: left 0.3s ease;
+  z-index: 9998;
+  display: flex;
+  flex-direction: column;
+}
+
+.site-header #menu-container .sidebar {
+  top: 68px;
+  height: calc(100vh - 68px);
+}
+
+.sidebar.activo {
+  left: 0;
+}
+
+.sidebar ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.sidebar ul li a {
+  display: block;
+  color: #fff;
+  text-decoration: none;
+  padding: 10px 12px;
+  border-radius: 6px;
+  font-size: 0.95rem;
+}
+
+.sidebar ul li a:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.sidebar .close-btn {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.sidebar p {
+  margin-top: auto;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+@media (min-width: 768px) {
+  #botonAbrir {
+    top: 16px;
+    left: 16px;
+  }
+
+  .site-header #botonAbrir {
+    width: 48px;
+    height: 48px;
+  }
+
+  .site-header #menu-container .sidebar {
+    top: 78px;
+    height: calc(100vh - 78px);
+  }
+}
+
+@media (min-width: 1024px) {
+  .sidebar {
+    width: 260px;
+    padding: 24px;
+  }
+
+  .sidebar ul li a {
+    font-size: 1rem;
+  }
+}

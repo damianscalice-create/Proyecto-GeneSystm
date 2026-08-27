@@ -40,97 +40,6 @@ body {
   letter-spacing: 0.5px;
 }
 
-#botonAbrir {
-  position: static;
-  z-index: 10;
-  background-color: rgba(255, 255, 255, 0.08);
-  border: none;
-  border-radius: 6px;
-  width: 44px;
-  height: 44px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-}
-
-#botonAbrir img {
-  width: auto;
-  height: auto;
-  display: block;
-}
-
-#botonAbrir img.cambio-bombilla {
-  animation: cambioBombilla 0.35s ease-out;
-}
-
-@keyframes cambioBombilla {
-  from {
-    opacity: 0.35;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-.sidebar {
-  position: fixed;
-  top: 68px;
-  left: -260px;
-  width: 250px;
-  height: calc(100vh - 68px);
-  background-color: #111111;
-  color: #fff;
-  padding: 20px 16px;
-  transition: left 0.3s ease;
-  z-index: 40;
-  display: flex;
-  flex-direction: column;
-}
-
-.sidebar.activo {
-  left: 0;
-}
-
-.sidebar ul {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-top: 20px;
-}
-
-.sidebar ul li a {
-  display: block;
-  color: #fff;
-  text-decoration: none;
-  padding: 10px 12px;
-  border-radius: 6px;
-  font-size: 0.95rem;
-}
-
-.sidebar ul li a:hover {
-  background-color: rgba(255, 255, 255, 0.08);
-}
-
-.sidebar .close-btn {
-  position: absolute;
-  top: 12px;
-  right: 16px;
-  background: none;
-  border: none;
-  color: #fff;
-  font-size: 2rem;
-  cursor: pointer;
-}
-
-.sidebar p {
-  margin-top: auto;
-  font-size: 0.8rem;
-  line-height: 1.5;
-  color: rgba(255, 255, 255, 0.8);
-}
-
 .main-content {
   display: flex;
   flex-direction: column;
@@ -162,17 +71,6 @@ body {
     font-size: 1.1rem;
   }
 
-  #botonAbrir {
-    width: 48px;
-    height: 48px;
-  }
-
-  .sidebar {
-    top: 78px;
-    width: 220px;
-    height: calc(100vh - 78px);
-  }
-
   .main-content {
     padding: 30px;
     min-height: calc(100vh - 78px);
@@ -184,15 +82,6 @@ body {
 }
 
 @media (min-width: 1024px) {
-  .sidebar {
-    width: 260px;
-    padding: 24px;
-  }
-
-  .sidebar ul li a {
-    font-size: 1rem;
-  }
-
   .main-content {
     padding: 40px;
   }

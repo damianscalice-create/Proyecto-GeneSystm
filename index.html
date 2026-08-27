@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="css/styles.css">
+        <link rel="stylesheet" href="css/menu.css">
         <link rel="icon" href="assets/bombilla.png" type="image/x-icon">
         <link rel="preconnect" href="https://fonts.googleapis.com">     <!-- La API de la fuente de letra de Jost -->
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>    <!-- La API de la fuente de letra de Jost -->
@@ -12,25 +13,10 @@
     </head>
     <body>
         <header class="site-header">
-            <button type="button" id="botonAbrir">
-               <img src="assets/bombilla.png" alt="" srcset="">
-            </button>
+                <div id="menu-container"></div>
             <div class="header-brand">GeneSysTM</div>
         </header>
         
-        <nav id="miSidebar" class="sidebar">
-            <button id="botonCerrar" class="close-btn" aria-label="Cerrar sidebar" title="Cerrar">&times;</button>
-            
-<!--        <img src="assets/genesys.png" alt="Logo de GeneSys" class="logo">  -->
-
-            <ul>
-                <li><a href="index.html">Inicio</a></li>
-                <li><a href="sobreNosotros.html">Sobre nosotros</a></li>
-                <li><a href="torneos.html">Torneos</a></li>
-            </ul>
-                <p>© 2026 GeneSysTM. Todos los derechos reservados.</p>
-        </nav>
-
         <main class="main-content">
             <br>
             <div class="caja">
@@ -44,6 +30,7 @@
         <footer>
             <img src="" alt="">
         </footer>
+        <script src="js/menu.js"></script>
         <script src="js/script.js"></script>
     </body>
 </html>
