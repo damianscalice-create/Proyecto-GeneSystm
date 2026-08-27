@@ -60,6 +60,19 @@ body {
   display: block;
 }
 
+#botonAbrir img.cambio-bombilla {
+  animation: cambioBombilla 0.35s ease-out;
+}
+
+@keyframes cambioBombilla {
+  from {
+    opacity: 0.35;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 .sidebar {
   position: fixed;
   top: 68px;

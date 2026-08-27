@@ -273,6 +273,19 @@ body {
   gap: 8px;
 }
 
+#botonAbrir img.cambio-bombilla {
+  animation: cambioBombilla 0.35s ease-out;
+}
+
+@keyframes cambioBombilla {
+  from {
+    opacity: 0.35;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 @media (min-width: 768px) {
   #botonAbrir {
     top: 16px;
