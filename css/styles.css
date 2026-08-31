@@ -4,20 +4,27 @@
   box-sizing: border-box;
 }
 
-html, body {
+html {
   min-height: 100%;
 }
 
 :root {
   --color-fondo: #f4f4f4;
   --color-texto: #111;
+  --color-primario: #5b4b90;
+  --color-secundario: #111111;
+  --color-card: rgba(255, 255, 255, 0.7);
 }
 
 .abrirTorneo{
   display: inline-block;
   padding: 12px 24px;
   text-decoration: none; /*Le saca el subrayado*/
+  color: black
+}
 
+.boton_abrirTorneo{
+  color: #5b4b90
 }
 
 .modoOscuro{
@@ -26,11 +33,13 @@ html, body {
 }
 
 body {
+  margin: 0;
   font-family: sans-serif;
-  background-color: var(--color-fondo);
+  background: linear-gradient(180deg, #f5f5f7 0%, #ece9f7 100%);
   color: var(--color-texto);
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
 }
 
 .site-header {
@@ -138,23 +147,68 @@ body {
 .main-content {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
   padding: 20px;
-  background-color: var(--color-fondo);
+  background-color: transparent;
   color: var(--color-texto);
   min-height: calc(100vh - 68px);
-  width: 100%;
+  width: min(90%, 900px);
+  margin: 0 auto;
+  text-align: center;
 }
 
 .main-content h1 {
-  font-size: 1.4rem;
+  font-size: clamp(2rem, 4vw, 3.2rem);
   margin-bottom: 12px;
+  line-height: 1.1;
+  font-weight: 800;
 }
 
 .caja {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  align-items: center;
+  gap: 12px;
+  width: min(100%, 620px);
+  padding: 32px 24px;
+  background: rgba(255, 255, 255, 0.76);
+  border: 1px solid rgba(91, 75, 144, 0.12);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(17, 17, 17, 0.08);
+  backdrop-filter: blur(8px);
+}
+
+.caja h5 {
+  max-width: 520px;
+  line-height: 1.6;
+  font-size: 1rem;
+  color: rgba(17, 17, 17, 0.75);
+}
+
+.boton_abrirTorneo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--color-primario), #7d6ccf);
+  border-radius: 100px;
+  padding: 0;
+  box-shadow: 0 12px 20px rgba(91, 75, 144, 0.25);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.boton_abrirTorneo:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 26px rgba(91, 75, 144, 0.3);
+}
+
+.abrirTorneo {
+  display: inline-block;
+  padding: 14px 28px;
+  text-decoration: none;
+  color: white;
+  font-weight: 700;
 }
 
 @media (min-width: 768px) {
