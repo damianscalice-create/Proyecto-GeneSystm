@@ -21,7 +21,7 @@ const imagenBombilla = document.getElementById('imagenBombilla');
 if (botonColor) {
     botonColor.addEventListener('click', () => {
         const modoOscuroActivo = cuerpo.classList.toggle('modoOscuro');
-        botonColor.textContent = modoOscuroActivo ? 'Modo Claro' : 'Modo Oscuro';
+        botonColor.textContent = modoOscuroActivo ? 'Modo Oscuro' : 'Modo Claro';
 
         if (imagenBombilla) {
             imagenBombilla.src = modoOscuroActivo
