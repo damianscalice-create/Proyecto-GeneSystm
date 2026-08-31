@@ -8,11 +8,17 @@ html {
   min-height: 100%;
 }
 
-:root {
-  --color-fondo: #f4f4f4;
-  --color-texto: #111;
+:root{
+  --color-fondo: #111;
+  --color-texto: #fff;
+  --color-card: #222;
   --color-primario: #5b4b90;
   --color-secundario: #111111;
+}
+
+.modoOscuro {
+  --color-fondo: #f4f4f4;
+  --color-texto: #111;
   --color-card: rgba(255, 255, 255, 0.7);
 }
 
@@ -25,12 +31,6 @@ html {
 
 .boton_abrirTorneo{
   color: #5b4b90
-}
-
-.modoOscuro{
-  --color-fondo: #111;
-  --color-texto: #fff;
-  --color-card: #222;
 }
 
 body {
