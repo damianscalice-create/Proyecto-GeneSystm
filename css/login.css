@@ -1,60 +1,3 @@
-body{
-  margin: 0;
-  font-family: Jost;
-  background: #f4f4f4;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background-color: black;
-}
-
-.contenedorLogin{
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-
-.cajaLogin{
-  width: 300px;
-  height: 150px;
-  background-color: #381dba;
-  border: 2px solid #4d22da;
-  padding: 20px;
-  margin: 10px;
-  display: flexbox;
-  align-items: center;
-  justify-content: center;
-}
-
-.bombilla{
-  width: 70px;
-  height: 70px;
-  object-fit: contain;
-  margin-bottom: 15px;
-}
-
-input, button{
-  width: 100%;
-  height: 10px;
-  margin-top: 10px;
-  box-sizing: border-box;
-}
-
-Headier{
-  width: 100%;
-  height: 50px;
-  background-color: #381dba;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-/* ================================
-   BASE — MÓVIL (< 768px)
-   La sidebar queda arriba, como un menú de navegación
-================================ */
-
 * {
   margin: 0;
   padding: 0;
@@ -62,67 +5,104 @@ Headier{
 }
 
 body {
-  font-family: sans-serif;
+  margin: 0;
   min-height: 100vh;
+  font-family: "Jost", sans-serif;
+  background: linear-gradient(135deg, #0f0f12, #1a1a1d 40%, #381dba);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.main-content {
+.contenedorLogin {
+  width: 100%;
+  display: flex;
+  justify-content: center;
   padding: 20px;
-  background-color: #f4f4f4;
-  min-height: 100vh;
 }
 
-.main-content h1 {
-  font-size: 1.4rem;
-  margin-bottom: 12px;
+.cajaLogin {
+  width: 100%;
+  max-width: 380px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  padding: 28px 24px;
+  box-shadow: 0 18px 35px rgba(0, 0, 0, 0.35);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
+.bombilla {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  margin: 0 auto 10px;
+  display: block;
+}
 
-/* ================================
-   TABLET (≥ 768px)
-   La sidebar pasa a columna lateral
-================================ */
+.cajaLogin p {
+  color: #ffffff;
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+.usuario,
+.contrasenia {
+  width: 100%;
+  height: 46px;
+  padding: 12px 14px;
+  border: 1px solid #d9d9d9;
+  border-radius: 10px;
+  font-size: 1rem;
+  outline: none;
+}
+
+.usuario:focus,
+.contrasenia:focus {
+  border-color: #8a7dff;
+  box-shadow: 0 0 0 3px rgba(138, 125, 255, 0.2);
+}
+
+button {
+  width: 100%;
+  height: 46px;
+  border: none;
+  border-radius: 10px;
+  margin-top: 6px;
+  background: #381dba;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+button:hover {
+  background: #4d22da;
+}
+
+.cajaLogin a {
+  margin-top: 6px;
+  text-align: center;
+  color: #d7d3ff;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.cajaLogin a:hover {
+  text-decoration: underline;
+}
 
 @media (min-width: 768px) {
-
-  body {
-    display: flex;
-  }
-
-  .main-content {
-    flex: 1;
-    padding: 30px;
-  }
-
-  .main-content h1 {
-    font-size: 1.8rem;
-  }
-
-  .bombilla{
-    padding: 70rem;
-    width: 50rem;
+  .cajaLogin {
+    padding: 32px 28px;
   }
 }
 
-
-/* ================================
-   DESKTOP (≥ 1024px)
-   Sidebar más ancha, más espaciado
-================================ */
-
 @media (min-width: 1024px) {
-
-  .main-content {
-    padding: 40px;
+  .cajaLogin {
+    max-width: 420px;
   }
-
-  .main-content h1 {
-    font-size: 2rem;
-  }
-
-  .bombilla{
-    padding: 10rem;
-    width: 25rem;
-  }
-
 }
