@@ -17,16 +17,23 @@ if (botonAbrir && botonCerrar && sidebar) {
 const botonColor = document.getElementById('botonColor');
 const cuerpo = document.body;
 const imagenBombilla = document.getElementById('imagenBombilla');
+const iconoModo = document.getElementById('iconoModo');
 
 if (botonColor) {
     botonColor.addEventListener('click', () => {
         const modoOscuroActivo = cuerpo.classList.toggle('modoOscuro');
-        botonColor.textContent = modoOscuroActivo ? 'Modo Oscuro' : 'Modo Claro';
+        botonColor.setAttribute('aria-label', modoOscuroActivo ? 'Activar modo claro' : 'Activar modo oscuro');
 
         if (imagenBombilla) {
             imagenBombilla.src = modoOscuroActivo
                 ? 'assets/Bombilla_on.png'
                 : 'assets/bombilla.png';
+        }
+
+        if (iconoModo) {
+            iconoModo.src = modoOscuroActivo
+                ? 'assets/claro.png'
+                : 'assets/oscuro.png';
         }
     });
 }
