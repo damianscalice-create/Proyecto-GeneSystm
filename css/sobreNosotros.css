@@ -25,9 +25,10 @@
   border: none;
 }
 
-/* ================================
-   BASE — MÓVIL (< 768px)
-   La sidebar queda arriba, como un menú de navegación
+/* 
+================================
+  BASE — MÓVIL (< 768px)
+  La sidebar queda arriba, como un menú de navegación
 ================================ */
 
 * {
@@ -116,9 +117,10 @@ body {
   margin-bottom: 12px;
 }
 
-/* ================================
-   TABLET (≥ 768px)
-   La sidebar pasa a columna lateral
+/* 
+================================
+ TABLET (≥ 768px)
+ La sidebar pasa a columna lateral
 ================================ */
 
 @media (min-width: 768px) {
@@ -164,9 +166,10 @@ body {
 }
 
 
-/* ================================
-   DESKTOP (≥ 1024px)
-   Sidebar más ancha, más espaciado
+/* 
+================================
+  DESKTOP (≥ 1024px)
+  Sidebar más ancha, más espaciado
 ================================ */
 
 @media (min-width: 1024px) {
