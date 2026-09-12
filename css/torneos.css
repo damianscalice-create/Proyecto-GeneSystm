@@ -1,6 +1,6 @@
 body{
   margin: 0;
-  background-color: #f4f4f4;
+  background-color: #111;
 }
 
 .Borde_lol1 {
@@ -53,6 +53,49 @@ body{
   margin: 6px;
   padding: 8px;
   border-radius: 10px;
+}
+
+#futbol,
+#futSala,
+#tennis,
+#eSports,
+#juegoMental {
+  width: min(100%, 260px);
+  margin: 6px;
+  padding: 11px 38px 11px 14px;
+  border: 1px solid #c8ced8;
+  border-radius: 10px;
+  background-color: #ffffff;
+  color: #263248;
+  font: inherit;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+#futbol:hover,
+#futSala:hover,
+#tennis:hover,
+#eSports:hover,
+#juegoMental:hover {
+  border-color: #5b4b90;
+}
+
+#futbol:focus,
+#futSala:focus,
+#tennis:focus,
+#eSports:focus,
+#juegoMental:focus {
+  border-color: #5b4b90;
+  box-shadow: 0 0 0 3px rgba(91, 75, 144, 0.18);
+}
+
+#futbol option,
+#futSala option,
+#tennis option,
+#eSports option,
+#juegoMental option {
+  color: #263248;
 }
 
 

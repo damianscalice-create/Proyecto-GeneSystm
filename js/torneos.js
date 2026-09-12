@@ -5,7 +5,9 @@ const contenedorCantidad = document.getElementById('contenedorCantidad');
 const resultadoTorneo = document.getElementById('resultadoTorneo');
 const resultadoTexto = document.getElementById('resultadoTexto');
 const botonConfirmar = document.getElementById('confirmarTorneo');
+const torneoForm = document.getElementById('torneoForm');
 const mensajeConfirmacion = document.getElementById('mensajeConfirmacion');
+let temporizadorConfirmacion;
 
 function actualizarVisibilidadCantidad() {
     if (!contenedorCantidad || !nombreEventoInput || !deporteSelect) {
@@ -54,24 +56,91 @@ function mostrarResultadoTorneo() {
     resultadoTorneo.classList.add('visible');
 }
 
-function mostrarMensajeConfirmacion() {
-    if (!mensajeConfirmacion || !deporteSelect || !cantidadInput) {
+// Devuelve el valor elegido en el sub-select del deporte activo
+// (género para Futbol/Futsala/Tenis, o el juego para E-sports/Mental)
+function obtenerDetalleDeporte() {
+    const idContenedor = mapaDeportes[deporteSelect?.value];
+    if (!idContenedor) return '';
+
+    const contenedor = document.getElementById(idContenedor);
+    const subSelect = contenedor ? contenedor.querySelector('select') : null;
+
+    return subSelect ? subSelect.value : '';
+}
+
+function mostrarMensaje(texto, tipo = 'info') {
+    if (!mensajeConfirmacion) return;
+
+    mensajeConfirmacion.textContent = texto;
+    mensajeConfirmacion.classList.remove('visible', 'error', 'exito');
+    void mensajeConfirmacion.offsetWidth;
+    mensajeConfirmacion.classList.add('visible', tipo === 'error' ? 'error' : 'exito');
+
+    clearTimeout(temporizadorConfirmacion);
+    temporizadorConfirmacion = setTimeout(() => {
+        mensajeConfirmacion.classList.remove('visible');
+    }, 3000);
+}
+
+async function mostrarMensajeConfirmacion() {
+    if (!mensajeConfirmacion || !deporteSelect || !cantidadInput || !nombreEventoInput) {
         return;
     }
 
-    const deporteNombre = deporteSelect.options[deporteSelect.selectedIndex].text;
+    const nombreEvento = nombreEventoInput.value.trim();
+    const deporteNombre = deporteSelect.options[deporteSelect.selectedIndex]?.text || '';
     const cantidad = cantidadInput.value;
+    const detalle = obtenerDetalleDeporte();
+
+    if (!nombreEvento) {
+        mostrarMensaje('Ingresá un nombre de evento antes de confirmar.', 'error');
+        return;
+    }
+
+    if (!deporteSelect.value) {
+        mostrarMensaje('Seleccioná un deporte antes de confirmar.', 'error');
+        return;
+    }
 
     if (!cantidad) {
-        mensajeConfirmacion.textContent = 'Selecciona una cantidad de participantes antes de confirmar.';
-        mensajeConfirmacion.classList.add('visible');
+        mostrarMensaje('Selecciona una cantidad de participantes antes de confirmar.', 'error');
         return;
     }
 
-    mensajeConfirmacion.textContent = `Confirmaste ${deporteNombre} para ${cantidad} participantes.`;
-    mensajeConfirmacion.classList.remove('visible');
-    void mensajeConfirmacion.offsetWidth;
-    mensajeConfirmacion.classList.add('visible');
+    // Deshabilitar el botón mientras se guarda, para evitar doble envío
+    if (botonConfirmar) {
+        botonConfirmar.disabled = true;
+        botonConfirmar.textContent = 'Guardando...';
+    }
+
+    try {
+        const respuesta = await fetch('php/guardarTorneo.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                nombreEvento: nombreEvento,
+                deporte: deporteNombre,
+                detalle: detalle,
+                cantidad: cantidad,
+            }),
+        });
+
+        const resultado = await respuesta.json();
+
+        if (resultado.exito) {
+            mostrarMensaje(`✅ Confirmaste ${deporteNombre} para ${cantidad} participantes. Guardado correctamente.`, 'exito');
+        } else {
+            mostrarMensaje(`❌ ${resultado.mensaje}`, 'error');
+        }
+
+    } catch (error) {
+        mostrarMensaje('❌ No se pudo conectar con el servidor. Intenta nuevamente.', 'error');
+    } finally {
+        if (botonConfirmar) {
+            botonConfirmar.disabled = false;
+            botonConfirmar.textContent = 'Confirmar selección';
+        }
+    }
 }
 
 if (deporteSelect) {
@@ -92,8 +161,11 @@ if (cantidadInput) {
 mostrarResultadoTorneo();
 actualizarVisibilidadCantidad();
 
-if (botonConfirmar) {
-    botonConfirmar.addEventListener('click', mostrarMensajeConfirmacion);
+if (torneoForm) {
+    torneoForm.addEventListener('submit', (evento) => {
+        evento.preventDefault();
+        mostrarMensajeConfirmacion();
+    });
 }
 
 /* Script para abrir el sidebar */
@@ -141,4 +213,3 @@ if (deporteSelect) {
     actualizarContenidoDeporte();
     actualizarVisibilidadCantidad();
 }
-
