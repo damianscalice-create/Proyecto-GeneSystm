@@ -1,8 +1,4 @@
 <?php
-// ============================================================
-// Conexión a la base de datos (PDO)
-// Editar estos 4 valores según tu servidor
-// ============================================================
 
 $DB_HOST = "localhost";
 $DB_NAME = "torneos_db";

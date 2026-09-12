@@ -113,7 +113,7 @@ async function mostrarMensajeConfirmacion() {
     }
 
     try {
-        const respuesta = await fetch('guardar_torneo.php', {
+        const respuesta = await fetch('php/guardarTorneo.php', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({

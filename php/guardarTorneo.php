@@ -1,22 +1,15 @@
 <?php
-// ============================================================
-// Endpoint: guardar_torneo.php
-// Recibe los datos del formulario de torneos.html (vía fetch/JSON)
-// y los guarda en la base de datos.
-// ============================================================
 
 header('Content-Type: application/json; charset=utf-8');
 
 require_once 'config.php';
 
-// Solo aceptar peticiones POST
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
     echo json_encode(["exito" => false, "mensaje" => "Método no permitido."]);
     exit;
 }
 
-// Leer el JSON enviado desde el JavaScript
 $datos = json_decode(file_get_contents('php://input'), true);
 
 $nombreEvento = trim($datos['nombreEvento'] ?? '');
@@ -25,6 +18,7 @@ $detalle = trim($datos['detalle'] ?? '');
 $cantidad = $datos['cantidad'] ?? null;
 
 // ---------------- Validaciones ----------------
+
 $errores = [];
 
 if ($nombreEvento === '') {
@@ -47,7 +41,10 @@ if (!empty($errores)) {
     exit;
 }
 
+
+
 // ---------------- Insertar en la base de datos ----------------
+
 try {
     $stmt = $pdo->prepare(
         "INSERT INTO torneos (nombre_evento, deporte, detalle, cantidad_participantes)
