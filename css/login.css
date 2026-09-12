@@ -42,7 +42,7 @@ body {
   display: block;
 }
 
-.cajaLogin p {
+.cajaLogin label {
   color: #ffffff;
   font-size: 0.95rem;
   margin: 0;

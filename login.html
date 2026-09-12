@@ -9,15 +9,15 @@
     </head>
         <body>
             <div class="contenedorLogin">
-                <div class="cajaLogin">
+                <form class="cajaLogin" action="php/login.php" method="post">
                     <img src="assets/bombilla.png" alt="" class="bombilla">
-                    <p>Ingrese su usuario</p>
-                    <input type="text" class="usuario" placeholder="usuario123@gmail.com">
-                    <p>Ingrese su contraseña</p>
-                    <input type="text" name="" class="contrasenia" placeholder="minimo 8 caracteres">
-                    <button>Continuar</button>
-                    <a href="">Registrarse</a>
-                </div>   
+                    <label for="usuario">Ingrese su usuario</label>
+                    <input type="email" id="usuario" name="user" class="usuario" placeholder="usuario123@gmail.com" required>
+                    <label for="contrasenia">Ingrese su contraseña</label>
+                    <input type="password" id="contrasenia" name="pass" class="contrasenia" placeholder="minimo 8 caracteres" minlength="8" required>
+                    <button type="submit">Continuar</button>
+                    <a href="registro.html">Registrarse</a>
+                </form>
             </div>
         </body>
         <script src="js/login.js"></script>

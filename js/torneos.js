@@ -5,6 +5,7 @@ const contenedorCantidad = document.getElementById('contenedorCantidad');
 const resultadoTorneo = document.getElementById('resultadoTorneo');
 const resultadoTexto = document.getElementById('resultadoTexto');
 const botonConfirmar = document.getElementById('confirmarTorneo');
+const torneoForm = document.getElementById('torneoForm');
 const mensajeConfirmacion = document.getElementById('mensajeConfirmacion');
 let temporizadorConfirmacion;
 
@@ -160,8 +161,11 @@ if (cantidadInput) {
 mostrarResultadoTorneo();
 actualizarVisibilidadCantidad();
 
-if (botonConfirmar) {
-    botonConfirmar.addEventListener('click', mostrarMensajeConfirmacion);
+if (torneoForm) {
+    torneoForm.addEventListener('submit', (evento) => {
+        evento.preventDefault();
+        mostrarMensajeConfirmacion();
+    });
 }
 
 /* Script para abrir el sidebar */
