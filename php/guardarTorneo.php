@@ -1,6 +1,6 @@
 <?php
 // ============================================================
-// Endpoint: guardar_torneo.php
+// Endpoint: guardarTorneo.php
 // Recibe los datos del formulario de torneos.html (vía fetch/JSON)
 // y los guarda en la base de datos.
 // ============================================================
