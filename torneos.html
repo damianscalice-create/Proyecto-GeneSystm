@@ -13,7 +13,7 @@
             <img src="assets/bombilla.png" alt="" srcset="">
     </button>
         
-    <aside id="miSidebar" class="sidebar">
+    <nav id="miSidebar" class="sidebar" aria-label="Navegación principal">
         <button id="botonCerrar" class="close-btn" aria-label="Cerrar sidebar" title="Cerrar">&times;</button>
             
         <ul>
@@ -21,19 +21,19 @@
             <li><a href="sobreNosotros.html">Sobre nosotros</a></li>
             <li><a href="torneos.html">Torneos</a></li>
         </ul>
-    </aside>
+    </nav>
 
     <div class="Borde_lol1">
         <h2 class="titulo">Elije un deporte</h2>
-        <div class="caja">
-            <p><label for="nombreEvento"><input type="text" id="nombreEvento" name="nombreEvento" placeholder="Nombre del evento" class="evento"></label></p>
-            <select name="select" id="deporte">
+        <form id="torneoForm" class="caja" action="php/guardarTorneo.php" method="post">
+            <p><label for="nombreEvento"><input type="text" id="nombreEvento" name="nombreEvento" placeholder="Nombre del evento" class="evento" required></label></p>
+            <select name="deporte" id="deporte" required>
                 <option value="" selected disabled>Selecciona un deporte</option>
                 <option value="value1">Futbol</option>
                 <option value="value2">Futbol Sala</option>
                 <option value="value3">Tennis</option>
                 <option value="value4">E-sports</option>
-                <option value="value5">Ajedrez</option>
+                <option value="value5">Juego de mesa</option>
             </select>
             <div class="deporte-content active" id="contenedor-futbol">
                 <select name="futbol" id="futbol">
@@ -59,31 +59,29 @@
             <div class="deporte-content" id="contenedor-Esports">
                 <select name="esport" id="eSports">
                     <option value="" selected disabled>Seleccione un juego:</option>
-                    <option value="">League of Legends</option>
-                    <option value="">DOTA 2</option>
-                    <option value="">CS: 2</option>
-                    <option value="">Valorant</option>
-                    <option value="">Fortnite</option>
-                    <option value="">Rocket League</option>
+                    <option value="League of Legends">League of Legends</option>
+                    <option value="DOTA 2">DOTA 2</option>
+                    <option value="CS: 2">CS: 2</option>
+                    <option value="Valorant">Valorant</option>
+                    <option value="Fortnite">Fortnite</option>
+                    <option value="Rocket League">Rocket League</option>
                 </select>
             </div>
             <div class="deporte-content" id="contenedor-mental">
-                <select name="" id="">
+                <select name="juegoMental" id="juegoMental">
                     <option value="" selected disabled>Seleccione uno:</option>
-                    <option value="">Ajedrez</option>
-                    <option value="">Damas</option>
-                    <option value="">Go</option>
-                    <option value="">Memorizacion</option>
+                    <option value="Ajedrez">Ajedrez</option>
+                    <option value="Damas">Damas</option>
+                    <option value="Go">Go</option>
                 </select>
             </div>
             <div></div>
             <p id="contenedorCantidad" class="contenedor-cantidad">
                 <label for="cantidad">Participantes</label>
-                <input type="number" id="cantidad" class="cantidad" min="2" step="2" placeholder="2">
+                <input type="number" id="cantidad" name="cantidad" class="cantidad" min="2" step="2" placeholder="2" required>
             </p>
-        </div>
-
-        <button type="button" id="confirmarTorneo" class="btn-confirmar">Confirmar selección</button>
+            <button type="submit" id="confirmarTorneo" class="btn-confirmar">Confirmar selección</button>
+        </form>
 
         <div id="mensajeConfirmacion" class="mensaje-confirmacion" aria-live="polite"></div>
     </div>

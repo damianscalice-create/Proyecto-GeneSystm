@@ -17,10 +17,12 @@
             </button>
             <div class="header-brand">GeneSysTM</div>
 
-            <button type="button" id="botonColor">Modo Claro</button>
+            <button type="button" id="botonColor" aria-label="Cambiar modo">
+                <img id="iconoModo" src="assets/oscuro.png" alt="Icono de modo" class="botonOscuro">
+            </button>
         </header>
         
-        <aside id="miSidebar" class="sidebar">
+        <nav id="miSidebar" class="sidebar" aria-label="Navegación principal">
             <button id="botonCerrar" class="close-btn" aria-label="Cerrar sidebar" title="Cerrar">&times;</button>
 
             <ul>
@@ -29,23 +31,23 @@
                 <li><a href="torneos.html">Torneos</a></li>
             </ul>
                 <p>© 2026 GeneSysTM. Todos los derechos reservados.</p>
-        </aside>
+        </nav>
 
         <main class="main-content">
-            <h1></h1>
-            <p></p>
             <div class="caja">
-                <h2>Bienvenido</h2>
-                <p>Esta es una caja visible en pantalla.</p>
+                <h1>Bienvenido a GeneSysTM</h1>
+                <h5>Organiza tus torneos competitivos de manera profesional para el entretenimiento de todos</h5>
             </div>
-
-            <button id="abrirTorneo">Crear un torneo</button>
-            <a href="torneos.html" class="abrirTorneo">Crear un torneo</a>
+            <button class="boton_abrirTorneo">
+                <a href="torneos.html" class="abrirTorneo">Crear un torneo</a>
+            </button>
         </main>
 
         <footer>
-            <img src="" alt="">
+            <img src="assets/osakapng.png" alt="" class="osaka">
         </footer>
         <script src="js/script.js"></script>
     </body>
 </html>
+
+<!-- ponete a programar y grabalo-->
