@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/torneos.css">
+    <link rel="icon" href="assets/bombilla.png" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">     <!-- La API de la fuente de letra de Jost -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>    <!-- La API de la fuente de letra de Jost -->
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">  <!-- La API de la fuente de letra de Jost -->
+    <title>Crear cuenta</title>
+</head>
+<body>
+ 
+    <div class="Borde_lol1">
+        <h2 class="titulo">Crear cuenta</h2>
+        <div class="caja">
+            <p>
+                <label for="nombreUsuario">
+                    <input type="text" id="nombreUsuario" name="nombreUsuario" placeholder="Nombre de usuario" class="evento">
+                </label>
+            </p>
+            <p>
+                <label for="email">
+                    <input type="email" id="email" name="email" placeholder="Email" class="evento">
+                </label>
+            </p>
+            <p>
+                <label for="password">
+                    <input type="password" id="password" name="password" placeholder="Contraseña (mín. 8 caracteres)" class="evento">
+                </label>
+            </p>
+            <p>
+                <label for="password2">
+                    <input type="password" id="password2" name="password2" placeholder="Confirmar contraseña" class="evento">
+                </label>
+            </p>
+        </div>
+ 
+        <button type="button" id="botonRegistro" class="btn-confirmar">Crear cuenta</button>
+ 
+        <div id="mensajeRegistro" class="mensaje-confirmacion" aria-live="polite"></div>
+ 
+        <p style="text-align:center; margin-top:15px;">
+            ¿Ya tenés cuenta? <a href="login.html">Iniciá sesión</a>
+        </p>
+    </div>
+ 
+    <script src="js/registro.js"></script>
+</body>
+</html>

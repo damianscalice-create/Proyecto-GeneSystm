@@ -43,7 +43,7 @@ if (!empty($errores)) {
 
 
 
-// ---------------- Insertar en la base de datos ----------------
+// ---------------- Inserta usuario en la base de datos ----------------
 
 try {
     $stmt = $pdo->prepare(

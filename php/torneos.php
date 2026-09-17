@@ -11,7 +11,7 @@
 <body>
 
     <button type="button" id="botonAbrir">
-            <img src="assets/bombilla.png" alt="" srcset="">
+        <img src="assets/bombilla.png" alt="" srcset="">
     </button>
         
     <nav id="miSidebar" class="sidebar" aria-label="Navegación principal">
@@ -27,7 +27,7 @@
     <div class="Borde_lol1">
         <p style="text-align:right; margin:0 0 10px;">
             Hola, <strong><?php echo htmlspecialchars($_SESSION['nombre_usuario']); ?></strong>
-            — <a href="#" id="cerrarSesion">Cerrar sesión</a>
+            - <a href="#" id="cerrarSesion">Cerrar sesión</a>
         </p>
         <h2 class="titulo">Elije un deporte</h2>
         <div class="caja">
