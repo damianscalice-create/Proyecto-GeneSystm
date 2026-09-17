@@ -1,0 +1,104 @@
+<?php require_once 'verificar_sesion.php'; ?>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/torneos.css">
+    <link rel="icon" href="assets/bombilla.png" type="image/x-icon">
+    <title>Torneos</title>
+</head>
+<body>
+
+    <button type="button" id="botonAbrir">
+            <img src="assets/bombilla.png" alt="" srcset="">
+    </button>
+        
+    <nav id="miSidebar" class="sidebar" aria-label="Navegación principal">
+        <button id="botonCerrar" class="close-btn" aria-label="Cerrar sidebar" title="Cerrar">&times;</button>
+            
+        <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="sobreNosotros.html">Sobre nosotros</a></li>
+            <li><a href="torneos.html">Torneos</a></li>
+        </ul>
+    </nav>
+
+    <div class="Borde_lol1">
+        <p style="text-align:right; margin:0 0 10px;">
+            Hola, <strong><?php echo htmlspecialchars($_SESSION['nombre_usuario']); ?></strong>
+            — <a href="#" id="cerrarSesion">Cerrar sesión</a>
+        </p>
+        <h2 class="titulo">Elije un deporte</h2>
+        <div class="caja">
+            <p><label for="nombreEvento"><input type="text" id="nombreEvento" name="nombreEvento" placeholder="Nombre del evento" class="evento"></label></p>
+            <select name="select" id="deporte">
+                <option value="" selected disabled>Selecciona un deporte</option>
+                <option value="value1">Futbol</option>
+                <option value="value2">Futbol Sala</option>
+                <option value="value3">Tennis</option>
+                <option value="value4">E-sports</option>
+                <option value="value5">Juego de mesa</option>
+            </select>
+            <div class="deporte-content active" id="contenedor-futbol">
+                <select name="futbol" id="futbol">
+                    <option value="" selected disabled>Seleccione el genero:</option>
+                    <option value="male">Masculino</option>
+                    <option value="fem">Femenino</option>
+                </select>
+            </div>
+            <div class="deporte-content" id="contenedor-futSala">
+                <select name="futsala" id="futSala">
+                    <option value="" selected disabled>Seleccione el genero:</option>
+                    <option value="male">Masculino</option>
+                    <option value="fem">Femenino</option>
+                </select>
+            </div>
+            <div class="deporte-content" id="contenedor-tennis">
+                <select name="tennis" id="tennis">
+                    <option value="" selected disabled>Seleccione el genero:</option>
+                    <option value="male">Masculino</option>
+                    <option value="fem">Femenino</option>
+                </select>
+            </div>
+            <div class="deporte-content" id="contenedor-Esports">
+                <select name="esport" id="eSports">
+                    <option value="" selected disabled>Seleccione un juego:</option>
+                    <option value="">League of Legends</option>
+                    <option value="">DOTA 2</option>
+                    <option value="">CS: 2</option>
+                    <option value="">Valorant</option>
+                    <option value="">Fortnite</option>
+                    <option value="">Rocket League</option>
+                </select>
+            </div>
+            <div class="deporte-content" id="contenedor-mental">
+                <select name="juegoMental" id="juegoMental">
+                    <option value="" selected disabled>Seleccione uno:</option>
+                    <option value="">Ajedrez</option>
+                    <option value="">Damas</option>
+                    <option value="">Go</option>
+                </select>
+            </div>
+            <div></div>
+            <p id="contenedorCantidad" class="contenedor-cantidad">
+                <label for="cantidad">Participantes</label>
+                <input type="number" id="cantidad" class="cantidad" min="2" step="2" placeholder="2">
+            </p>
+        </div>
+
+        <button type="button" id="confirmarTorneo" class="btn-confirmar">Confirmar selección</button>
+
+        <div id="mensajeConfirmacion" class="mensaje-confirmacion" aria-live="polite"></div>
+    </div>
+
+    <script src="js/torneos.js"></script>
+    <script>
+        document.getElementById('cerrarSesion')?.addEventListener('click', async (e) => {
+            e.preventDefault();
+            await fetch('logout.php', { method: 'POST' });
+            window.location.href = 'login.html';
+        });
+    </script>
+</body>
+</html>
