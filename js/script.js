@@ -14,6 +14,32 @@ if (botonAbrir && botonCerrar && sidebar) {
     });
 }
 
+const botonColor = document.getElementById('botonColor');
+const cuerpo = document.body;
+const imagenBombilla = document.getElementById('imagenBombilla');
+const iconoModo = document.getElementById('iconoModo');
+
+if (botonColor) {
+    botonColor.addEventListener('click', () => {
+        const modoOscuroActivo = cuerpo.classList.toggle('modoOscuro');
+        botonColor.setAttribute('aria-label', modoOscuroActivo ? 'Activar modo claro' : 'Activar modo oscuro');
+        botonColor.title = modoOscuroActivo ? 'Activar modo claro' : 'Activar modo oscuro';
+        botonColor.querySelector('span').textContent = modoOscuroActivo ? 'Modo claro' : 'Modo oscuro';
+
+        if (imagenBombilla) {
+            imagenBombilla.src = modoOscuroActivo
+                ? 'assets/Bombilla_on.png'
+                : 'assets/bombilla.png';
+        }
+
+        if (iconoModo) {
+            iconoModo.src = modoOscuroActivo
+                ? 'assets/claro.png'
+                : 'assets/oscuro.png';
+        }
+    });
+}
+
 const botonUsuario = document.getElementById('botonUsuario');
 
 if (botonUsuario) {

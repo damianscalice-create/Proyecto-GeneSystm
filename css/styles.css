@@ -156,6 +156,33 @@ body {
   background-color: rgba(255, 255, 255, 0.08);
 }
 
+#botonColor {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  margin-top: 16px;
+  padding: 10px 12px;
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  color: #fff;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+#botonColor:hover,
+#botonColor:focus-visible {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+#iconoModo {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+}
+
 .sidebar .close-btn {
   position: absolute;
   top: 12px;
