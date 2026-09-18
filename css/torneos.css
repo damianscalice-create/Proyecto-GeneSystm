@@ -3,6 +3,10 @@ body{
   background-color: #111;
 }
 
+.titulo {
+  color: white;
+}
+
 .Borde_lol1 {
   display: flex;
   flex-direction: column;

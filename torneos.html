@@ -30,6 +30,7 @@
         <h2 class="titulo">Elije un deporte</h2>
         <form id="torneoForm" class="caja" action="php/guardarTorneo.php" method="post">
             <p><label for="nombreEvento"><input type="text" id="nombreEvento" name="nombreEvento" placeholder="Nombre del evento" class="evento" required></label></p>
+            
             <select name="deporte" id="deporte" required>
                 <option value="" selected disabled>Selecciona un deporte</option>
                 <option value="value1">Futbol</option>
@@ -37,7 +38,9 @@
                 <option value="value3">Tennis</option>
                 <option value="value4">E-sports</option>
                 <option value="value5">Juego de mesa</option>
+            
             </select>
+            
             <div class="deporte-content active" id="contenedor-futbol">
                 <select name="futbol" id="futbol">
                     <option value="" selected disabled>Seleccione el genero:</option>
@@ -45,6 +48,7 @@
                     <option value="fem">Femenino</option>
                 </select>
             </div>
+            
             <div class="deporte-content" id="contenedor-futSala">
                 <select name="futsala" id="futSala">
                     <option value="" selected disabled>Seleccione el genero:</option>
@@ -52,6 +56,7 @@
                     <option value="fem">Femenino</option>
                 </select>
             </div>
+            
             <div class="deporte-content" id="contenedor-tennis">
                 <select name="tennis" id="tennis">
                     <option value="" selected disabled>Seleccione el genero:</option>
@@ -59,6 +64,7 @@
                     <option value="fem">Femenino</option>
                 </select>
             </div>
+            
             <div class="deporte-content" id="contenedor-Esports">
                 <select name="esport" id="eSports">
                     <option value="" selected disabled>Seleccione un juego:</option>
@@ -70,6 +76,7 @@
                     <option value="Rocket League">Rocket League</option>
                 </select>
             </div>
+            
             <div class="deporte-content" id="contenedor-mental">
                 <select name="juegoMental" id="juegoMental">
                     <option value="" selected disabled>Seleccione uno:</option>
@@ -78,7 +85,7 @@
                     <option value="Go">Go</option>
                 </select>
             </div>
-            <div></div>
+
             <p id="contenedorCantidad" class="contenedor-cantidad">
                 <label for="cantidad">Participantes</label>
                 <input type="number" id="cantidad" name="cantidad" class="cantidad" min="2" step="2" placeholder="2" required>
