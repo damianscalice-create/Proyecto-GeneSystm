@@ -45,6 +45,7 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  transition: background-color 0.55s ease, color 0.55s ease;
 }
 
 .site-header {
@@ -183,6 +184,35 @@ body {
   object-fit: contain;
 }
 
+#iconoModo.cambioModo {
+  animation: giroModo 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes giroModo {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    transform: rotate(180deg) scale(1.25);
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body,
+  .main-content,
+  .caja,
+  .caja h5 {
+    transition-duration: 0.01ms;
+  }
+
+  #iconoModo.cambioModo {
+    animation: none;
+  }
+}
+
 .sidebar .close-btn {
   position: absolute;
   top: 12px;
@@ -214,6 +244,7 @@ body {
   width: min(90%, 900px);
   margin: 0 auto;
   text-align: center;
+  transition: color 0.55s ease;
 }
 
 .main-content h1 {
@@ -235,13 +266,15 @@ body {
   border-radius: 20px;
   box-shadow: 0 10px 30px rgba(17, 17, 17, 0.08);
   backdrop-filter: blur(8px);
+  transition: background-color 0.55s ease, color 0.55s ease, box-shadow 0.55s ease, border-color 0.55s ease;
 }
 
 .caja h5 {
   max-width: 520px;
   line-height: 1.6;
   font-size: 1rem;
-  color: var(--color-texto)
+  color: var(--color-texto);
+  transition: color 0.55s ease;
 }
 
 .boton_abrirTorneo {

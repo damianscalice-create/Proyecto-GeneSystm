@@ -36,6 +36,8 @@ if (botonColor) {
             iconoModo.src = modoOscuroActivo
                 ? 'assets/claro.png'
                 : 'assets/oscuro.png';
+            iconoModo.classList.remove('cambioModo');
+            requestAnimationFrame(() => iconoModo.classList.add('cambioModo'));
         }
     });
 }
