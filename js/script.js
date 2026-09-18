@@ -37,3 +37,12 @@ if (botonColor) {
         }
     });
 }
+
+const botonSecreto = document.getElementById('botonSecreto');
+const osakaImage = document.getElementById('osakaImage');
+
+if (botonSecreto && osakaImage) {
+    botonSecreto.addEventListener('click', () => {
+        osakaImage.classList.toggle('visible');
+    });
+}

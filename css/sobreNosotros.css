@@ -80,6 +80,39 @@ body {
   min-height: 100vh;
 }
 
+.secreto-osaka {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+.boton-secreto {
+  width: 18px;
+  height: 18px;
+  border: none;
+  background: transparent;
+  color: transparent;
+  cursor: pointer;
+  opacity: 0.08;
+  transition: opacity 0.2s ease;
+}
+
+.boton-secreto:hover {
+  opacity: 0.4;
+}
+
+.osaka {
+  display: none;
+  width: min(220px, 60vw);
+  margin-top: 12px;
+}
+
+.osaka.visible {
+  display: block;
+}
+
 .main-content h1 {
   font-size: 1.4rem;
   margin-bottom: 12px;
