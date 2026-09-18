@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,14 +12,14 @@
     </head>
         <body>
             <div class="contenedorLogin">
-                <form class="cajaLogin" action="php/login.php" method="post">
+                <form class="cajaLogin" id="formularioLogin">
                     <img src="assets/bombilla.png" alt="" class="bombilla">
 
                     <label for="usuario">Ingrese su usuario</label>
-                    <input type="email" id="usuario" name="user" class="usuario" placeholder="usuario123@gmail.com" required>
+                    <input type="text" id="usuario" name="nombreUsuario" class="usuario" placeholder="Nombre de usuario" required>
                     
                     <label for="contrasenia">Ingrese su contraseña</label>
-                    <input type="password" id="contrasenia" name="pass" class="contrasenia" placeholder="minimo 8 caracteres" minlength="8" required>
+                    <input type="password" id="contrasenia" name="password" class="contrasenia" placeholder="mínimo 8 caracteres" minlength="8" required>
                     <div id="mensajeLogin" class="mensaje-confirmacion" aria-live="polite"></div>
                     
                     <button type="submit">Iniciar sesion</button>

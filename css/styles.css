@@ -91,6 +91,31 @@ body {
   display: block;
 }
 
+#botonUsuario {
+  background-color: rgba(255, 255, 255, 0.08);
+  border: none;
+  border-radius: 6px;
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+#botonUsuario:hover,
+#botonUsuario:focus-visible,
+#botonAbrir:hover,
+#botonAbrir:focus-visible {
+  background-color: rgba(255, 255, 255, 0.18);
+}
+
+.iconoUsuario {
+  width: 25px;
+  height: 25px;
+  display: block;
+}
+
 .sidebar {
   position: fixed;
   top: 68px;
@@ -227,6 +252,11 @@ body {
   }
 
   #botonAbrir {
+    width: 48px;
+    height: 48px;
+  }
+
+  #botonUsuario {
     width: 48px;
     height: 48px;
   }

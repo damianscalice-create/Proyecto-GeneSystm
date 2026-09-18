@@ -14,26 +14,28 @@ if (botonAbrir && botonCerrar && sidebar) {
     });
 }
 
-const botonColor = document.getElementById('botonColor');
-const cuerpo = document.body;
-const imagenBombilla = document.getElementById('imagenBombilla');
-const iconoModo = document.getElementById('iconoModo');
+const botonUsuario = document.getElementById('botonUsuario');
 
-if (botonColor) {
-    botonColor.addEventListener('click', () => {
-        const modoOscuroActivo = cuerpo.classList.toggle('modoOscuro');
-        botonColor.setAttribute('aria-label', modoOscuroActivo ? 'Activar modo claro' : 'Activar modo oscuro');
+if (botonUsuario) {
+    fetch('php/estadoSesion.php', { credentials: 'same-origin' })
+        .then((respuesta) => respuesta.json())
+        .then((sesion) => {
+            if (sesion.iniciada) {
+                botonUsuario.setAttribute('aria-label', `Ver usuario ${sesion.nombreUsuario}`);
+                botonUsuario.title = `Usuario: ${sesion.nombreUsuario}`;
+            }
+        })
+        .catch(() => {
+            botonUsuario.setAttribute('aria-label', 'Iniciar sesión');
+        });
 
-        if (imagenBombilla) {
-            imagenBombilla.src = modoOscuroActivo
-                ? 'assets/Bombilla_on.png'
-                : 'assets/bombilla.png';
-        }
-
-        if (iconoModo) {
-            iconoModo.src = modoOscuroActivo
-                ? 'assets/claro.png'
-                : 'assets/oscuro.png';
+    botonUsuario.addEventListener('click', async () => {
+        try {
+            const respuesta = await fetch('php/estadoSesion.php', { credentials: 'same-origin' });
+            const sesion = await respuesta.json();
+            window.location.href = sesion.iniciada ? 'php/torneos.php' : 'login.html';
+        } catch {
+            window.location.href = 'login.html';
         }
     });
 }
