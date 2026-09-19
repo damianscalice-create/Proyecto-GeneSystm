@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/torneos.css">
+    <link rel="stylesheet" href="css/registro.css">
     <link rel="icon" href="assets/bombilla.png" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">     <!-- La API de la fuente de letra de Jost -->
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>    <!-- La API de la fuente de letra de Jost -->
@@ -11,41 +11,30 @@
     <title>Crear cuenta</title>
 </head>
 <body>
- 
-    <div class="Borde_lol1">
-        <h2 class="titulo">Crear cuenta</h2>
-        <div class="caja">
-            <p>
-                <label for="nombreUsuario">
-                    <input type="text" id="nombreUsuario" name="nombreUsuario" placeholder="Nombre de usuario" class="evento">
-                </label>
-            </p>
-            <p>
-                <label for="email">
-                    <input type="email" id="email" name="email" placeholder="Email" class="evento">
-                </label>
-            </p>
-            <p>
-                <label for="password">
-                    <input type="password" id="password" name="password" placeholder="Contraseña (mín. 8 caracteres)" class="evento">
-                </label>
-            </p>
-            <p>
-                <label for="password2">
-                    <input type="password" id="password2" name="password2" placeholder="Confirmar contraseña" class="evento">
-                </label>
-            </p>
-        </div>
- 
-        <button type="button" id="botonRegistro" class="btn-confirmar">Crear cuenta</button>
- 
-        <div id="mensajeRegistro" class="mensaje-confirmacion" aria-live="polite"></div>
- 
-        <p style="text-align:center; margin-top:15px;">
-            ¿Ya tenés cuenta? <a href="login.html">Iniciá sesión</a>
-        </p>
+    <div class="contenedorLogin">
+        <form class="cajaLogin" id="formularioRegistro" novalidate>
+            <img src="assets/bombilla.png" alt="Logo de GeneSystm" class="bombilla">
+
+            <label for="nombreUsuario">Ingrese su usuario</label>
+            <input type="text" id="nombreUsuario" name="nombreUsuario" class="evento" placeholder="Nombre de usuario" required>
+
+            <label for="email">Ingrese su email</label>
+            <input type="email" id="email" name="email" class="evento" placeholder="Email" required>
+
+            <label for="password">Ingrese su contraseña</label>
+            <input type="password" id="password" name="password" class="evento" placeholder="Mínimo 8 caracteres" minlength="8" required>
+
+            <label for="password2">Confirme su contraseña</label>
+            <input type="password" id="password2" name="password2" class="evento" placeholder="Confirmar contraseña" minlength="8" required>
+
+            <div id="mensajeRegistro" class="mensaje-confirmacion" aria-live="polite"></div>
+
+            <button type="submit" id="botonRegistro">Crear cuenta</button>
+
+            <a href="login.html">¿Ya tenés cuenta? Iniciá sesión</a>
+        </form>
     </div>
- 
+
     <script src="js/registro.js"></script>
 </body>
 </html>

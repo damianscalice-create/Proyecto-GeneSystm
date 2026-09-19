@@ -1,8 +1,6 @@
 <?php
-// ============================================================
-// Endpoint: registro.php
+
 // Registra un nuevo usuario con contraseña hasheada
-// ============================================================
  
 header('Content-Type: application/json; charset=utf-8');
 require_once 'config.php';
@@ -45,7 +43,7 @@ if (!empty($errores)) {
     exit;
 }
  
-// ---------------- Verificar que no exista ya ----------------
+// ---------------- Verificar que no exista esa cuenta ----------------
 try {
     $stmt = $pdo->prepare("SELECT id FROM usuarios WHERE nombre_usuario = :u OR email = :e");
     $stmt->execute([':u' => $nombreUsuario, ':e' => $email]);
