@@ -70,9 +70,21 @@ if (botonUsuario) {
 
 const botonSecreto = document.getElementById('botonSecreto');
 const osakaImage = document.getElementById('osakaImage');
+let position = 0;
+let speed = 2;
+let osakaTimeout;
 
 if (botonSecreto && osakaImage) {
     botonSecreto.addEventListener('click', () => {
-        osakaImage.classList.toggle('visible');
+        if (osakaImage.classList.contains('visible')) {
+            clearTimeout(osakaTimeout);
+            osakaImage.classList.remove('visible');
+            return;
+        }
+
+        osakaImage.classList.add('visible');
+        osakaTimeout = setTimeout(() => {
+            osakaImage.classList.remove('visible');
+        }, 2000);
     });
 }
