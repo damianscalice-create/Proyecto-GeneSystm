@@ -82,7 +82,7 @@ try {
         } else {
             $stmt = $pdo->prepare("UPDATE usuarios SET intentos_fallidos = :i WHERE id = :id");
             $stmt->execute([':i' => $intentos, ':id' => $usuario['id']]);
- 
+
             http_response_code(401);
             echo json_encode(["exito" => false, "mensaje" => "Usuario o contraseña incorrectos."]);
         }
