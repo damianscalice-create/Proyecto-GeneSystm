@@ -24,9 +24,11 @@ $errores = [];
 if ($nombreEvento === '') {
     $errores[] = "El nombre del evento es obligatorio.";
 }
+
 if (!in_array($deporte, $deportesValidos, true)) {
     $errores[] = "Debe seleccionar un deporte válido.";
 }
+
 if (!is_numeric($cantidad) || (int)$cantidad < 2) {
     $errores[] = "La cantidad debe ser un número mayor o igual a 2.";
 } elseif ((int)$cantidad % 2 !== 0) {

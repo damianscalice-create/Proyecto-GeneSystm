@@ -11,7 +11,7 @@ if (!isset($_SESSION['usuario_id'])) {
     exit;
 }
  
-require_once 'config.php';
+require_once __DIR__ . '../../config/config.php';
  
 $datos = json_decode(file_get_contents('php://input'), true);
 $id = $datos['id'] ?? null;
