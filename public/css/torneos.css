@@ -1,6 +1,10 @@
 body{
-  margin: 0;
-  background-color: #111;
+  min-height: 100vh;
+  font-family: "Jost", sans-serif;
+  background: linear-gradient(135deg, #0f0f12, #1a1a1d 40%, #381dba);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .titulo {
