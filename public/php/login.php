@@ -2,7 +2,7 @@
 
 session_start();
 header('Content-Type: application/json; charset=utf-8');
-require_once 'config.php';
+require_once __DIR__ . '../../config/config.php';
  
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
@@ -82,7 +82,7 @@ try {
         } else {
             $stmt = $pdo->prepare("UPDATE usuarios SET intentos_fallidos = :i WHERE id = :id");
             $stmt->execute([':i' => $intentos, ':id' => $usuario['id']]);
- 
+
             http_response_code(401);
             echo json_encode(["exito" => false, "mensaje" => "Usuario o contraseña incorrectos."]);
         }

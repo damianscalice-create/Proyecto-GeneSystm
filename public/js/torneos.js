@@ -128,11 +128,11 @@ async function mostrarMensajeConfirmacion() {
         const resultado = await respuesta.json();
 
         if (resultado.exito) {
-            mostrarMensaje(`✅ Confirmaste ${deporteNombre} para ${cantidad} participantes. Guardado correctamente.`, 'exito');
+            window.location.href = `torneo_creado.php?id=${resultado.id}`;
         } else {
             mostrarMensaje(`❌ ${resultado.mensaje}`, 'error');
         }
-
+        
     } catch (error) {
         mostrarMensaje('❌ No se pudo conectar con el servidor. Intenta nuevamente.', 'error');
     } finally {

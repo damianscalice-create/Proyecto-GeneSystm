@@ -1,0 +1,98 @@
+.resumen-torneo {
+    margin-bottom: 20px;
+}
+ 
+.resumen-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 15px;
+}
+ 
+.resumen-item {
+    display: flex;
+    flex-direction: column;
+    min-width: 140px;
+}
+ 
+.resumen-etiqueta {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #777;
+    margin-bottom: 4px;
+}
+ 
+.resumen-valor {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1F4E79;
+}
+/* Bracket */
+
+.bracket-contenedor {
+    overflow-x: auto;
+}
+ 
+.bracket {
+    display: flex;
+    gap: 40px;
+    padding: 20px 10px;
+    min-width: fit-content;
+}
+ 
+.bracket-ronda {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    min-width: 180px;
+}
+ 
+.bracket-ronda-titulo {
+    text-align: center;
+    font-size: 14px;
+    color: #1F4E79;
+    margin-bottom: 15px;
+}
+ 
+.bracket-partido {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 25px;
+    background: #fff;
+}
+ 
+.bracket-jugador {
+    padding: 8px 12px;
+    font-size: 14px;
+    border-bottom: 1px solid #eee;
+}
+ 
+.bracket-jugador:last-child {
+    border-bottom: none;
+}
+ 
+.bracket-jugador.bye {
+    color: #aaa;
+    font-style: italic;
+}
+ 
+.bracket-nota {
+    font-size: 12px;
+    color: #888;
+    margin-top: 10px;
+}
+ 
+/* Scroll horizontal suave en pantallas chicas */
+@media (max-width: 700px) {
+    .bracket {
+        gap: 25px;
+    }
+    .bracket-ronda {
+        min-width: 150px;
+    }
+}
+ 

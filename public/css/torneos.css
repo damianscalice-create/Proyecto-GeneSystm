@@ -1,6 +1,14 @@
 body{
-  margin: 0;
-  background-color: #111;
+  min-height: 100vh;
+  font-family: "Jost", sans-serif;
+  background: linear-gradient(135deg, #0f0f12, #1a1a1d 40%, #381dba);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.titulo {
+  color: white;
 }
 
 .Borde_lol1 {
@@ -411,6 +419,76 @@ body {
     display: inline-flex;
     align-items: center;
     gap: 8px;
+  }
+}
+
+.sidebar {
+  position: fixed;
+  top: 68px;
+  left: -260px;
+  width: 250px;
+  height: calc(100vh - 68px);
+  background-color: #111111;
+  color: #fff;
+  padding: 20px 16px;
+  transition: left 0.3s ease;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar.activo {
+  left: 0;
+}
+
+.sidebar ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.sidebar ul li a {
+  display: block;
+  color: #fff;
+  text-decoration: none;
+  padding: 10px 12px;
+  border-radius: 6px;
+  font-size: 0.95rem;
+}
+
+.sidebar ul li a:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.sidebar .close-btn {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+@media (min-width: 768px) {
+  .sidebar {
+    top: 78px;
+    width: 220px;
+    height: calc(100vh - 78px);
+  }
+}
+
+@media (min-width: 1024px) {
+  .sidebar {
+    width: 260px;
+    padding: 24px;
+  }
+
+  .sidebar ul li a {
+    font-size: 1rem;
   }
 }
 
