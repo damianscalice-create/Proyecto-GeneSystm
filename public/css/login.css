@@ -42,6 +42,12 @@ body {
   display: block;
 }
 
+.welcome{
+  text-align: center;
+  color: white;
+  font-size: 24px;
+}
+
 .cajaLogin label {
   color: #ffffff;
   font-size: 0.95rem;
