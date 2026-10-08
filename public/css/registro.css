@@ -34,7 +34,7 @@ body {
   gap: 12px;
 }
 
-.cajaLogin, 
+.cajaLogin
 .close-btn {
   position: absolute;
   top: 12px;
