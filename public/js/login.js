@@ -1,5 +1,6 @@
 const formularioLogin = document.getElementById('formularioLogin');
 const mensajeLogin = document.getElementById('mensajeLogin');
+const btnCerrarLogin = document.getElementById('botonCerrarLogin');
 
 if (formularioLogin) {
 	formularioLogin.addEventListener('submit', async (evento) => {
@@ -28,5 +29,11 @@ if (formularioLogin) {
 			mensajeLogin.textContent = 'No se pudo conectar con el servidor.';
 			botonEnviar.disabled = false;
 		}
+	});
+}
+
+if (btnCerrarLogin) {
+	btnCerrarLogin.addEventListener('click', () => {
+		window.location.href = 'index.html';
 	});
 }
