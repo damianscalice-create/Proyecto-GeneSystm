@@ -355,6 +355,14 @@ textarea {
   color: var(--torneos-texto-suave);
 }
 
+.gestor-torneos .gt-error {
+  padding: 10px 12px;
+  color: var(--torneos-error);
+  border: 1px solid rgba(239, 106, 120, 0.45);
+  border-radius: 9px;
+  background: rgba(239, 106, 120, 0.1);
+}
+
 .gestor-torneos summary {
   cursor: pointer;
 }
