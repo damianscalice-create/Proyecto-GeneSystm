@@ -1,584 +1,601 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/gestor-torneos.css">
-    <link rel="icon" href="assets/bombilla.png" type="image/x-icon">
-    <link rel="preconnect" href="https://fonts.googleapis.com">     <!-- La API de la fuente de letra de Jost -->
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>    <!-- La API de la fuente de letra de Jost -->
-    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">  <!-- La API de la fuente de letra de Jost -->
-    <title>Torneos</title>
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css/gestor-torneos.css">
+        <link rel="stylesheet" href="css/header.css">
+        <link rel="icon" href="assets/bombilla.png" type="image/x-icon">
+        <link rel="preconnect" href="https://fonts.googleapis.com">     <!-- La API de la fuente de letra de Jost -->
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>    <!-- La API de la fuente de letra de Jost -->
+        <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">  <!-- La API de la fuente de letra de Jost -->
+        <title>Torneos</title>
+    </head>
+    <body>
 
-    <button type="button" id="botonAbrir">
-            <img src="assets/bombilla.png" alt="" srcset="">
-    </button>
+        <header class="site-header">
+            <button type="button" id="botonAbrir">
+                <img id="imagenBombilla" src="assets/bombilla.png" alt="Abrir menú">
+            </button>
+            <div class="header-brand">GeneSysTM</div>
+            <button type="button" id="botonUsuario" aria-label="Iniciar sesión" title="Iniciar sesión">
+                <img src="assets/usuario.svg" alt="" class="iconoUsuario">
+            </button>
+        </header>
         
-    <nav id="miSidebar" class="sidebar" aria-label="Navegación principal">
-        <button id="botonCerrar" class="close-btn" aria-label="Cerrar sidebar" title="Cerrar">&times;</button>
+        <nav id="miSidebar" class="sidebar" aria-label="Navegación principal">
+            <button id="botonCerrar" class="close-btn" aria-label="Cerrar sidebar" title="Cerrar">&times;</button>
             
-        <ul>
-            <li><a href="index.html">Inicio</a></li>
-            <li><a href="sobreNosotros.html">Sobre nosotros</a></li>
-            <li><a href="torneos.html">Torneos</a></li>
-        </ul>
-    </nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="sobreNosotros.html">Sobre nosotros</a></li>
+                <li><a href="torneos.html">Torneos</a></li>
+            </ul>
+        
+            <button type="button" id="botonColor" aria-label="Activar modo claro" title="Activar modo claro">
+                    <img id="iconoModo" src="assets/claro.png" alt="">
+                    <span>Modo claro</span>
+            </button>
+            <p>© 2026 GeneSysTM. Todos los derechos reservados.</p>
+        </nav>
 
-    <main id="app" class="gestor-torneos"></main>
-<script>
+        <main id="app" class="gestor-torneos"></main>
 
-const botonAbrir = document.getElementById('botonAbrir');
-const botonCerrar = document.getElementById('botonCerrar');
-const sidebar = document.getElementById('miSidebar');
+    <script>
 
-if (botonAbrir && botonCerrar && sidebar) {
-    botonAbrir.addEventListener('click', () => sidebar.classList.toggle('activo'));
-    botonCerrar.addEventListener('click', () => sidebar.classList.remove('activo'));
-}
-(() => {
-    const app = document.getElementById('app');
-    if (!app) return;
+    (() => {
+        const app = document.getElementById('app');
+        if (!app) return;
 
-    const STORAGE_CURRENT = 'torneoCur';
-    const API_URL = 'php/gestorTorneos.php';
-    const names = { league: 'Liga', knockout: 'Eliminatoria', swiss: 'Sistema suizo' };
-    const state = { tournaments: [], currentId: null, publicView: false, error: '', loading: true, user: '' };
+        const STORAGE_CURRENT = 'torneoCur';
+        const API_URL = 'php/gestorTorneos.php';
+        const names = { league: 'Liga', knockout: 'Eliminatoria', swiss: 'Sistema suizo' };
+        const state = { tournaments: [], currentId: null, publicView: false, error: '', loading: true, user: '' };
 
-    try {
-        state.currentId = localStorage.getItem(STORAGE_CURRENT) || null;
-    } catch (error) {
-        console.error('No se pudo recuperar el torneo seleccionado.', error);
-    }
-
-    const canWrite = () => !state.publicView;
-    const canAdmin = () => !state.publicView;
-    const currentTournament = () => state.tournaments.find(tournament => tournament.id === state.currentId);
-    const uid = () => Math.random().toString(36).slice(2, 9);
-    const escapeHtml = value => String(value).replace(/[&<>"']/g, character => ({
-        '&': '&amp;',
-        '<': '&lt;',
-        '>': '&gt;',
-        '"': '&quot;',
-        "'": '&#39;',
-    })[character]);
-    const formatDate = value => new Date(value).toLocaleString([], { dateStyle: 'short', timeStyle: 'short' });
-    const logChange = (tournament, text) => {
-        tournament.log = (tournament.log || []).concat({ ts: Date.now(), text }).slice(-60);
-    };
-    const saveCurrentId = () => {
         try {
-            localStorage.setItem(STORAGE_CURRENT, state.currentId || '');
+            state.currentId = localStorage.getItem(STORAGE_CURRENT) || null;
         } catch (error) {
-            console.error('No se pudo guardar el torneo seleccionado.', error);
+            console.error('No se pudo recuperar el torneo seleccionado.', error);
         }
-    };
-    async function requestApi(method, payload) {
-        const options = { method, credentials: 'same-origin', headers: { Accept: 'application/json' } };
-        if (payload !== undefined) {
-            options.headers['Content-Type'] = 'application/json';
-            options.body = JSON.stringify(payload);
-        }
-        const response = await fetch(API_URL, options);
-        const result = await response.json().catch(() => null);
-        if (response.status === 401) {
-            window.location.href = 'login.html';
-            throw new Error('Debés iniciar sesión.');
-        }
-        if (!response.ok || !result || result.exito !== true) {
-            throw new Error(result && result.mensaje ? result.mensaje : 'No se pudo comunicar con el servidor.');
-        }
-        return result;
-    }
-    function showError(error) {
-        state.error = error instanceof Error ? error.message : 'Ocurrió un error al guardar el torneo.';
-        render();
-    }
-    async function saveTournament(tournament, previous) {
-        try {
-            const result = await requestApi('PUT', tournament);
-            Object.assign(tournament, result.torneo);
-            state.error = '';
-            render();
-            return true;
-        } catch (error) {
-            const index = state.tournaments.findIndex(item => item.id === previous.id);
-            if (index !== -1) state.tournaments[index] = previous;
-            showError(error);
-            return false;
-        }
-    }
-    async function loadTournaments() {
-        try {
-            const result = await requestApi('GET');
-            state.tournaments = Array.isArray(result.torneos) ? result.torneos : [];
-            state.user = result.usuario || '';
-            if (!state.tournaments.some(tournament => tournament.id === state.currentId)) {
-                state.currentId = null;
-                saveCurrentId();
+
+        const canWrite = () => !state.publicView;
+        const canAdmin = () => !state.publicView;
+        const currentTournament = () => state.tournaments.find(tournament => tournament.id === state.currentId);
+        const uid = () => Math.random().toString(36).slice(2, 9);
+        const escapeHtml = value => String(value).replace(/[&<>"']/g, character => ({
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#39;',
+        })[character]);
+        const formatDate = value => new Date(value).toLocaleString([], { dateStyle: 'short', timeStyle: 'short' });
+        const logChange = (tournament, text) => {
+            tournament.log = (tournament.log || []).concat({ ts: Date.now(), text }).slice(-60);
+        };
+        const saveCurrentId = () => {
+            try {
+                localStorage.setItem(STORAGE_CURRENT, state.currentId || '');
+            } catch (error) {
+                console.error('No se pudo guardar el torneo seleccionado.', error);
             }
-            state.error = '';
-        } catch (error) {
-            state.error = error instanceof Error ? error.message : 'No se pudieron cargar los torneos.';
-        } finally {
-            state.loading = false;
+        };
+        async function requestApi(method, payload) {
+            const options = { method, credentials: 'same-origin', headers: { Accept: 'application/json' } };
+            if (payload !== undefined) {
+                options.headers['Content-Type'] = 'application/json';
+                options.body = JSON.stringify(payload);
+            }
+            const response = await fetch(API_URL, options);
+            const result = await response.json().catch(() => null);
+            if (response.status === 401) {
+                window.location.href = 'login.html';
+                throw new Error('Debés iniciar sesión.');
+            }
+            if (!response.ok || !result || result.exito !== true) {
+                throw new Error(result && result.mensaje ? result.mensaje : 'No se pudo comunicar con el servidor.');
+            }
+            return result;
+        }
+        function showError(error) {
+            state.error = error instanceof Error ? error.message : 'Ocurrió un error al guardar el torneo.';
             render();
         }
-    };
-    const shuffle = values => {
-        const shuffled = [...values];
-        for (let i = shuffled.length - 1; i > 0; i--) {
-            const j = Math.random() * (i + 1) | 0;
-            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-        }
-        return shuffled;
-    };
-    const makeMatch = (round, a, b) => ({ id: uid(), r: round, a, b, sa: null, sb: null, done: b === null });
-    const winner = match => match.b === null ? match.a : !match.done ? null : match.sa > match.sb ? match.a : match.sb > match.sa ? match.b : null;
-    const lastRound = tournament => Math.max(...tournament.matches.map(match => match.r));
-
-    function readForm(prefix) {
-        const get = id => document.getElementById(prefix + id);
-        const name = get('nm').value.trim().slice(0, 60) || 'Mi torneo';
-        const players = get('pl').value.split('\n')
-            .map(player => player.replace(/[\u0000-\u001f]/g, '').trim().slice(0, 40))
-            .filter(Boolean);
-
-        if (new Set(players).size !== players.length) {
-            alert('Hay nombres repetidos.');
-            return null;
-        }
-        if (players.length < 3 || players.length > 64) {
-            alert('Se permiten entre 3 y 64 participantes.');
-            return null;
-        }
-
-        return {
-            name,
-            type: get('ty') ? get('ty').value : null,
-            players,
-            dbl: !!(get('db') && get('db').checked),
-        };
-    }
-
-    function standings(tournament) {
-        const scores = Object.create(null);
-        tournament.players.forEach(name => {
-            scores[name] = { name, pj: 0, g: 0, e: 0, p: 0, gf: 0, gc: 0, pts: 0, opp: [] };
-        });
-        tournament.matches.forEach(match => {
-            if (!match.done) return;
-            const a = scores[match.a];
-            if (!a) return;
-            if (match.b === null) {
-                a.pj++;
-                a.g++;
-                a.pts += 3;
-                return;
-            }
-            const b = scores[match.b];
-            if (!b) return;
-            a.pj++;
-            b.pj++;
-            a.gf += match.sa;
-            a.gc += match.sb;
-            b.gf += match.sb;
-            b.gc += match.sa;
-            a.opp.push(match.b);
-            b.opp.push(match.a);
-            if (match.sa > match.sb) {
-                a.g++;
-                b.p++;
-                a.pts += 3;
-            } else if (match.sb > match.sa) {
-                b.g++;
-                a.p++;
-                b.pts += 3;
-            } else {
-                a.e++;
-                b.e++;
-                a.pts++;
-                b.pts++;
-            }
-        });
-
-        const rows = Object.values(scores);
-        rows.forEach(row => {
-            row.dif = row.gf - row.gc;
-            row.bh = row.opp.reduce((total, opponent) => total + scores[opponent].pts, 0);
-        });
-        return rows.sort((a, b) => b.pts - a.pts
-            || (tournament.type === 'swiss' ? b.bh - a.bh : 0)
-            || b.dif - a.dif
-            || b.gf - a.gf
-            || a.name.localeCompare(b.name));
-    }
-
-    function pairSwissRound(tournament, round) {
-        const pool = standings(tournament).map(row => row.name);
-        let bye = null;
-        if (pool.length % 2) {
-            const previousByes = new Set(tournament.matches.filter(match => match.b === null).map(match => match.a));
-            for (let i = pool.length - 1; i >= 0; i--) {
-                if (!previousByes.has(pool[i])) {
-                    bye = pool.splice(i, 1)[0];
-                    break;
-                }
-            }
-            if (bye === null) bye = pool.pop();
-        }
-        const alreadyPlayed = (a, b) => tournament.matches.some(match =>
-            (match.a === a && match.b === b) || (match.a === b && match.b === a));
-
-        while (pool.length) {
-            const a = pool.shift();
-            let index = pool.findIndex(b => !alreadyPlayed(a, b));
-            if (index < 0) index = 0;
-            tournament.matches.push(makeMatch(round, a, pool.splice(index, 1)[0]));
-        }
-        if (bye !== null) tournament.matches.push(makeMatch(round, bye, null));
-    }
-
-    function generateTournament(tournament) {
-        const players = tournament.players;
-        tournament.matches = [];
-        if (tournament.type === 'league') {
-            let array = [...players];
-            if (array.length % 2) array.push(null);
-            const size = array.length;
-            for (let round = 0; round < size - 1; round++) {
-                for (let i = 0; i < size / 2; i++) {
-                    let a = array[i];
-                    let b = array[size - 1 - i];
-                    if (a === null || b === null) continue;
-                    if (round % 2) [a, b] = [b, a];
-                    tournament.matches.push(makeMatch(round + 1, a, b));
-                    if (tournament.dbl) tournament.matches.push(makeMatch(round + size, b, a));
-                }
-                array = [array[0], array[size - 1], ...array.slice(1, size - 1)];
-            }
-        } else if (tournament.type === 'knockout') {
-            const shuffled = shuffle(players);
-            const size = 2 ** Math.ceil(Math.log2(shuffled.length));
-            const byes = size - shuffled.length;
-            shuffled.slice(0, byes).forEach(player => tournament.matches.push(makeMatch(1, player, null)));
-            const rest = shuffled.slice(byes);
-            for (let i = 0; i < rest.length; i += 2) {
-                tournament.matches.push(makeMatch(1, rest[i], rest[i + 1]));
-            }
-        } else {
-            tournament.rounds = Math.max(1, Math.ceil(Math.log2(players.length)));
-            pairSwissRound(tournament, 1);
-        }
-    }
-
-    async function createTournament() {
-        if (!canWrite()) return;
-        const form = readForm('gt-');
-        if (!form) return;
-        const tournament = {
-            name: form.name,
-            type: form.type,
-            players: form.players,
-            dbl: form.dbl,
-            matches: [],
-            log: [],
-        };
-        generateTournament(tournament);
-        logChange(tournament, 'Torneo creado (' + form.players.length + ' participantes)');
-        try {
-            const result = await requestApi('POST', tournament);
-            state.tournaments.unshift(result.torneo);
-            state.currentId = result.torneo.id;
-            saveCurrentId();
-            state.error = '';
-        } catch (error) {
-            showError(error);
-            return;
-        }
-        render();
-    }
-
-    async function applyConfiguration() {
-        const tournament = currentTournament();
-        if (!canAdmin() || !tournament) return;
-        const form = readForm('gt-e');
-        if (!form) return;
-        if (!confirm('Se regenerarán los enfrentamientos y se perderán los resultados. ¿Continuar?')) return;
-        const previous = JSON.parse(JSON.stringify(tournament));
-        tournament.name = form.name;
-        tournament.players = form.players;
-        tournament.dbl = form.dbl;
-        generateTournament(tournament);
-        logChange(tournament, 'Configuración editada; torneo regenerado');
-        await saveTournament(tournament, previous);
-    }
-
-    async function renameTournament() {
-        const tournament = currentTournament();
-        if (!canAdmin() || !tournament) return;
-        const previous = JSON.parse(JSON.stringify(tournament));
-        tournament.name = document.getElementById('gt-enm').value.trim().slice(0, 60) || tournament.name;
-        logChange(tournament, 'Torneo renombrado');
-        await saveTournament(tournament, previous);
-    }
-
-    async function undoRound() {
-        const tournament = currentTournament();
-        if (!canAdmin() || !tournament || tournament.type === 'league') return;
-        const round = lastRound(tournament);
-        if (round <= 1 || !confirm('¿Eliminar la ronda ' + round + '?')) return;
-        const previous = JSON.parse(JSON.stringify(tournament));
-        tournament.matches = tournament.matches.filter(match => match.r !== round);
-        logChange(tournament, 'Ronda ' + round + ' eliminada');
-        await saveTournament(tournament, previous);
-    }
-
-    async function setDate(matchId, value) {
-        const tournament = currentTournament();
-        const match = tournament && tournament.matches.find(item => item.id === matchId);
-        if (!canAdmin() || !match) return;
-        const previous = JSON.parse(JSON.stringify(tournament));
-        match.dt = value || null;
-        logChange(tournament, 'Fecha de ' + match.a + ' vs ' + match.b + ': ' + (value ? formatDate(value) : 'sin fecha'));
-        await saveTournament(tournament, previous);
-    }
-
-    async function saveResult(matchId) {
-        const tournament = currentTournament();
-        const match = tournament && tournament.matches.find(item => item.id === matchId);
-        if (!canWrite() || !match) return;
-        const scoreA = document.getElementById('a' + matchId).value;
-        const scoreB = document.getElementById('b' + matchId).value;
-        if (scoreA === '' || scoreB === '' || !Number.isInteger(+scoreA) || !Number.isInteger(+scoreB)
-            || +scoreA < 0 || +scoreB < 0 || +scoreA > 999 || +scoreB > 999) {
-            alert('Ingresá resultados enteros entre 0 y 999.');
-            return;
-        }
-        if (tournament.type === 'knockout' && +scoreA === +scoreB) {
-            alert('En eliminatoria no puede haber empate.');
-            return;
-        }
-        const previous = JSON.parse(JSON.stringify(tournament));
-        match.sa = +scoreA;
-        match.sb = +scoreB;
-        match.done = true;
-        logChange(tournament, 'Resultado ronda ' + match.r + ': ' + match.a + ' ' + scoreA + ' - ' + scoreB + ' ' + match.b);
-        await saveTournament(tournament, previous);
-    }
-
-    async function nextRound() {
-        if (!canWrite()) return;
-        const tournament = currentTournament();
-        if (!tournament) return;
-        const previous = JSON.parse(JSON.stringify(tournament));
-        const round = lastRound(tournament);
-        const currentMatches = tournament.matches.filter(match => match.r === round);
-        if (tournament.type === 'swiss') {
-            pairSwissRound(tournament, round + 1);
-        } else {
-            const winners = currentMatches.map(winner);
-            for (let i = 0; i < winners.length; i += 2) {
-                tournament.matches.push(makeMatch(round + 1, winners[i], winners[i + 1]));
+        async function saveTournament(tournament, previous) {
+            try {
+                const result = await requestApi('PUT', tournament);
+                Object.assign(tournament, result.torneo);
+                state.error = '';
+                render();
+                return true;
+            } catch (error) {
+                const index = state.tournaments.findIndex(item => item.id === previous.id);
+                if (index !== -1) state.tournaments[index] = previous;
+                showError(error);
+                return false;
             }
         }
-        logChange(tournament, 'Ronda ' + (round + 1) + ' generada');
-        await saveTournament(tournament, previous);
-    }
-
-    async function deleteTournament() {
-        const tournament = currentTournament();
-        if (!tournament || !confirm('¿Eliminar este torneo?')) return;
-        try {
-            await requestApi('DELETE', { id: tournament.id });
-            state.tournaments = state.tournaments.filter(item => item.id !== tournament.id);
-            state.error = '';
-        } catch (error) {
-            showError(error);
-            return;
-        }
-        state.currentId = null;
-        saveCurrentId();
-        render();
-    }
-
-    function tournamentTable(tournament) {
-        const swiss = tournament.type === 'swiss';
-        return `<div class="gt-scroll"><table><tr><th>#</th><th>Participante</th><th>PJ</th><th>G</th><th>E</th><th>P</th><th>GF</th><th>GC</th><th>DG</th>${swiss ? '<th>Buch.</th>' : ''}<th>Pts</th></tr>
-        ${standings(tournament).map((row, index) => `<tr><td>${index + 1}</td><td>${escapeHtml(row.name)}</td><td>${row.pj}</td><td>${row.g}</td><td>${row.e}</td><td>${row.p}</td><td>${row.gf}</td><td>${row.gc}</td><td>${row.dif}</td>${swiss ? `<td>${row.bh}</td>` : ''}<td><b>${row.pts}</b></td></tr>`).join('')}</table></div>`;
-    }
-
-    function roundName(tournament, round, count) {
-        if (tournament.type !== 'knockout') return 'Ronda ' + round;
-        return count === 1 ? 'Final' : count === 2 ? 'Semifinales' : count === 4 ? 'Cuartos de final'
-            : count === 8 ? 'Octavos de final' : 'Ronda ' + round;
-    }
-
-    function matchRow(match, editable) {
-        if (match.b === null) {
-            return `<div class="gt-match"><span class="gt-name">${escapeHtml(match.a)}</span><span class="gt-tag">pasa / descansa</span><span class="gt-name"></span></div>`;
-        }
-        const canEditResult = editable && canWrite();
-        const disabled = canEditResult ? '' : 'disabled';
-        return `<div class="gt-match"><span class="gt-name">${escapeHtml(match.a)}</span>
-        <input type="number" min="0" max="999" id="a${match.id}" value="${match.sa ?? ''}" ${disabled}>-<input type="number" min="0" max="999" id="b${match.id}" value="${match.sb ?? ''}" ${disabled}>
-        <span class="gt-name">${escapeHtml(match.b)}</span>${canEditResult ? `<button type="button" data-action="save-result" data-id="${match.id}">${match.done ? '✓' : 'OK'}</button>` : ''}${canAdmin() ? `<input type="datetime-local" class="gt-dt" value="${match.dt || ''}" data-date-id="${match.id}">` : match.dt ? `<span class="gt-tag">${formatDate(match.dt)}</span>` : ''}</div>`;
-    }
-
-    function renderList() {
-        const items = state.tournaments.length
-            ? state.tournaments.map(tournament => `<button type="button" class="gt-card gt-list-item" data-action="open" data-id="${tournament.id}"><span><b>${escapeHtml(tournament.name)}</b> <span class="gt-tag">${names[tournament.type] || ''}</span></span><span class="gt-tag">${tournament.players.length} part.</span></button>`).join('')
-            : '<p class="gt-muted">Todavía no creaste ninguno.</p>';
-        return `<h1>🏆 Gestor de torneos</h1>
-        <p>
-            <span class="gt-tag">${state.error ? 'MySQL no disponible' : 'Guardado en MySQL'}</span>
-            <span class="gt-tag">${state.user ? `Usuario: ${escapeHtml(state.user)}` : 'Sesión autenticada'}</span>
-            <button type="button" class="gt-secondary" data-action="toggle-public">${state.publicView ? 'Salir de vista pública' : 'Vista pública'}</button>
-        </p>
-        ${state.error ? `<p class="gt-error" role="alert">${escapeHtml(state.error)}</p>` : ''}
-        ${canWrite() ? `<div class="gt-card"><b>Nuevo torneo</b>
-          <label for="gt-nm">Nombre</label>
-          <input id="gt-nm" placeholder="Copa de verano">
-          
-          <label for="gt-ty">Formato</label><select id="gt-ty"><option value="league">Liga (todos contra todos)</option><option value="knockout">Eliminatoria directa</option><option value="swiss">Sistema suizo</option></select>
-          <div id="gt-dbw"><label><input type="checkbox" id="gt-db"> Ida y vuelta</label></div>
-
-          <label for="gt-pl">Participantes (uno por línea)</label><textarea id="gt-pl" placeholder="Ana&#10;Beto&#10;Carla&#10;Diego"></textarea>
-          <div class="gt-row" style="margin-top:10px"><button type="button" data-action="create">Crear torneo</button></div></div>` : ''}
-          
-        <h2>Mis torneos</h2>${items}`;
-    }
-
-    function renderTournament(tournament) {
-        const round = lastRound(tournament);
-        const lastMatches = tournament.matches.filter(match => match.r === round);
-        const lastDone = lastMatches.every(match => match.done);
-        let canAdvance = false;
-        let isFinished = false;
-        let champion = null;
-        if (tournament.type === 'knockout') {
-            isFinished = lastMatches.length === 1 && lastDone;
-            if (isFinished) champion = winner(lastMatches[0]);
-            canAdvance = lastDone && !isFinished;
-        } else if (tournament.type === 'swiss') {
-            canAdvance = lastDone && round < tournament.rounds;
-            isFinished = lastDone && round >= tournament.rounds;
-            if (isFinished) champion = standings(tournament)[0].name;
-        } else {
-            isFinished = tournament.matches.every(match => match.done);
-            if (isFinished) champion = standings(tournament)[0].name;
-        }
-
-        let html = `${state.error ? `<p class="gt-error" role="alert">${escapeHtml(state.error)}</p>` : ''}<div class="gt-row gt-page-actions" style="justify-content:space-between"><h1>${escapeHtml(tournament.name)} <span class="gt-tag">${names[tournament.type]}</span></h1><span class="gt-row"><span class="gt-tag">${state.user ? `Usuario: ${escapeHtml(state.user)}` : 'Sesión autenticada'}</span><button type="button" class="gt-secondary" data-action="toggle-public">${state.publicView ? 'Salir de vista pública' : 'Vista pública'}</button><button type="button" class="gt-secondary" data-action="back">← Volver</button>${canAdmin() ? `<button type="button" class="gt-danger" data-action="delete">Eliminar</button>` : ''}</span></div>`;
-        if (champion) html += `<div class="gt-winner">🏆 ${tournament.type === 'swiss' || tournament.type === 'league' ? 'Líder / campeón' : 'Campeón'}: ${escapeHtml(champion)}</div>`;
-        if (tournament.type !== 'knockout') {
-            html += `<h2>Clasificación</h2><div class="gt-card">${tournamentTable(tournament)}${tournament.type === 'swiss' ? '<p class="gt-tag" style="display:inline-block">Desempate: Buchholz (suma de puntos de los rivales), luego diferencia de goles</p>' : ''}</div>`;
-        }
-        if (canAdvance && canWrite()) {
-            html += `<div class="gt-row" style="margin:8px 0"><button type="button" data-action="next">${tournament.type === 'swiss' ? 'Generar siguiente ronda' : 'Avanzar a la siguiente fase'}</button></div>`;
-        } else if (!isFinished && tournament.type !== 'league' && canWrite()) {
-            html += '<p class="gt-muted">Cargá todos los resultados de la ronda para avanzar.</p>';
-        }
-        if (canAdmin() && tournament.type !== 'league' && round > 1) {
-            html += '<div class="gt-row" style="margin:8px 0"><button type="button" class="gt-secondary" data-action="undo">↩ Deshacer última ronda</button></div>';
-        }
-        if (canAdmin()) {
-            html += `<details class="gt-card"><summary>⚙ Configuración y participantes</summary>
-            <label for="gt-enm">Nombre</label><input id="gt-enm" value="${escapeHtml(tournament.name)}">
-            <label for="gt-epl">Participantes (uno por línea)</label><textarea id="gt-epl">${escapeHtml(tournament.players.join('\n'))}</textarea>
-            ${tournament.type === 'league' ? `<label><input type="checkbox" id="gt-edb" ${tournament.dbl ? 'checked' : ''}> Ida y vuelta</label>` : ''}
-            <div class="gt-row" style="margin-top:10px"><button type="button" class="gt-secondary" data-action="rename">Solo renombrar</button><button type="button" data-action="apply-config">Guardar y regenerar</button></div></details>`;
-        }
-        const rounds = [...new Set(tournament.matches.map(match => match.r))].sort((a, b) => a - b);
-        const blocks = rounds.map(number => {
-            const matches = tournament.matches.filter(match => match.r === number);
-            const editable = tournament.type === 'league' || number === round;
-            return `<div><h2>${roundName(tournament, number, matches.length)}${tournament.type === 'swiss' ? ` / ${tournament.rounds}` : ''}</h2><div class="gt-card">${matches.map(match => matchRow(match, editable)).join('')}</div></div>`;
-        });
-        html += tournament.type === 'knockout' ? `<div class="gt-columns">${blocks.join('')}</div>` : blocks.reverse().join('');
-        const schedule = tournament.matches.filter(match => match.dt && match.b !== null).sort((a, b) => a.dt.localeCompare(b.dt));
-        if (schedule.length) {
-            html += `<h2>Calendario</h2><div class="gt-card">${schedule.map(match => `<div class="gt-match"><span class="gt-tag">${formatDate(match.dt)}</span><span class="gt-name" style="text-align:left">${escapeHtml(match.a)} vs ${escapeHtml(match.b)}</span><b>${match.done ? match.sa + ' - ' + match.sb : '—'}</b></div>`).join('')}</div>`;
-        }
-        html += `<details class="gt-card"><summary>Historial de cambios (${(tournament.log || []).length})</summary>${(tournament.log || []).slice().reverse().slice(0, 25).map(entry => `<div style="font-size:13px;color:var(--gt-muted)">${formatDate(entry.ts)} — ${escapeHtml(entry.text)}</div>`).join('')}</details>`;
-        return html;
-    }
-
-    function render() {
-        if (state.loading) {
-            app.innerHTML = '<p class="gt-muted">Cargando torneos...</p>';
-            return;
-        }
-        const tournament = currentTournament();
-        app.innerHTML = tournament ? renderTournament(tournament) : renderList();
-    }
-
-    app.addEventListener('click', async event => {
-        const button = event.target.closest('[data-action]');
-        if (!button || !app.contains(button)) return;
-        const id = button.dataset.id;
-        try {
-            switch (button.dataset.action) {
-                case 'create':
-                    await createTournament();
-                    break;
-                case 'open':
-                    state.currentId = id;
-                    saveCurrentId();
-                    state.error = '';
-                    render();
-                    break;
-                case 'back':
+        async function loadTournaments() {
+            try {
+                const result = await requestApi('GET');
+                state.tournaments = Array.isArray(result.torneos) ? result.torneos : [];
+                state.user = result.usuario || '';
+                if (!state.tournaments.some(tournament => tournament.id === state.currentId)) {
                     state.currentId = null;
                     saveCurrentId();
-                    state.error = '';
-                    render();
-                    break;
-                case 'delete':
-                    await deleteTournament();
-                    break;
-                case 'toggle-public':
-                    state.publicView = !state.publicView;
-                    render();
-                    break;
-                case 'next':
-                    await nextRound();
-                    break;
-                case 'undo':
-                    await undoRound();
-                    break;
-                case 'save-result':
-                    await saveResult(id);
-                    break;
-                case 'rename':
-                    await renameTournament();
-                    break;
-                case 'apply-config':
-                    await applyConfiguration();
-                    break;
+                }
+                state.error = '';
+            } catch (error) {
+                state.error = error instanceof Error ? error.message : 'No se pudieron cargar los torneos.';
+            } finally {
+                state.loading = false;
+                render();
             }
-        } catch (error) {
-            showError(error);
-        }
-    });
+        };
+        const shuffle = values => {
+            const shuffled = [...values];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.random() * (i + 1) | 0;
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        };
+        const makeMatch = (round, a, b) => ({ id: uid(), r: round, a, b, sa: null, sb: null, done: b === null });
+        const winner = match => match.b === null ? match.a : !match.done ? null : match.sa > match.sb ? match.a : match.sb > match.sa ? match.b : null;
+        const lastRound = tournament => Math.max(...tournament.matches.map(match => match.r));
 
-    app.addEventListener('change', async event => {
-        if (event.target.matches('#gt-ty')) {
-            document.getElementById('gt-dbw').style.display = event.target.value === 'league' ? 'block' : 'none';
-        } else if (event.target.matches('[data-date-id]')) {
+        function readForm(prefix) {
+            const get = id => document.getElementById(prefix + id);
+            const name = get('nm').value.trim().slice(0, 60) || 'Mi torneo';
+            const players = get('pl').value.split('\n')
+                .map(player => player.replace(/[\u0000-\u001f]/g, '').trim().slice(0, 40))
+                .filter(Boolean);
+
+            if (new Set(players).size !== players.length) {
+                alert('Hay nombres repetidos.');
+                return null;
+            }
+            if (players.length < 3 || players.length > 64) {
+                alert('Se permiten entre 3 y 64 participantes.');
+                return null;
+            }
+
+            return {
+                name,
+                type: get('ty') ? get('ty').value : null,
+                players,
+                dbl: !!(get('db') && get('db').checked),
+            };
+        }
+
+        function standings(tournament) {
+            const scores = Object.create(null);
+            tournament.players.forEach(name => {
+                scores[name] = { name, pj: 0, g: 0, e: 0, p: 0, gf: 0, gc: 0, pts: 0, opp: [] };
+            });
+            tournament.matches.forEach(match => {
+                if (!match.done) return;
+                const a = scores[match.a];
+                if (!a) return;
+                if (match.b === null) {
+                    a.pj++;
+                    a.g++;
+                    a.pts += 3;
+                    return;
+                }
+                const b = scores[match.b];
+                if (!b) return;
+                a.pj++;
+                b.pj++;
+                a.gf += match.sa;
+                a.gc += match.sb;
+                b.gf += match.sb;
+                b.gc += match.sa;
+                a.opp.push(match.b);
+                b.opp.push(match.a);
+                if (match.sa > match.sb) {
+                    a.g++;
+                    b.p++;
+                    a.pts += 3;
+                } else if (match.sb > match.sa) {
+                    b.g++;
+                    a.p++;
+                    b.pts += 3;
+                } else {
+                    a.e++;
+                    b.e++;
+                    a.pts++;
+                    b.pts++;
+                }
+            });
+
+            const rows = Object.values(scores);
+            rows.forEach(row => {
+                row.dif = row.gf - row.gc;
+                row.bh = row.opp.reduce((total, opponent) => total + scores[opponent].pts, 0);
+            });
+            return rows.sort((a, b) => b.pts - a.pts
+                || (tournament.type === 'swiss' ? b.bh - a.bh : 0)
+                || b.dif - a.dif
+                || b.gf - a.gf
+                || a.name.localeCompare(b.name));
+        }
+
+        function pairSwissRound(tournament, round) {
+            const pool = standings(tournament).map(row => row.name);
+            let bye = null;
+            if (pool.length % 2) {
+                const previousByes = new Set(tournament.matches.filter(match => match.b === null).map(match => match.a));
+                for (let i = pool.length - 1; i >= 0; i--) {
+                    if (!previousByes.has(pool[i])) {
+                        bye = pool.splice(i, 1)[0];
+                        break;
+                    }
+                }
+                if (bye === null) bye = pool.pop();
+            }
+            const alreadyPlayed = (a, b) => tournament.matches.some(match =>
+                (match.a === a && match.b === b) || (match.a === b && match.b === a));
+
+            while (pool.length) {
+                const a = pool.shift();
+                let index = pool.findIndex(b => !alreadyPlayed(a, b));
+                if (index < 0) index = 0;
+                tournament.matches.push(makeMatch(round, a, pool.splice(index, 1)[0]));
+            }
+            if (bye !== null) tournament.matches.push(makeMatch(round, bye, null));
+        }
+
+        function generateTournament(tournament) {
+            const players = tournament.players;
+            tournament.matches = [];
+            if (tournament.type === 'league') {
+                let array = [...players];
+                if (array.length % 2) array.push(null);
+                const size = array.length;
+                for (let round = 0; round < size - 1; round++) {
+                    for (let i = 0; i < size / 2; i++) {
+                        let a = array[i];
+                        let b = array[size - 1 - i];
+                        if (a === null || b === null) continue;
+                        if (round % 2) [a, b] = [b, a];
+                        tournament.matches.push(makeMatch(round + 1, a, b));
+                        if (tournament.dbl) tournament.matches.push(makeMatch(round + size, b, a));
+                    }
+                    array = [array[0], array[size - 1], ...array.slice(1, size - 1)];
+                }
+            } else if (tournament.type === 'knockout') {
+                const shuffled = shuffle(players);
+                const size = 2 ** Math.ceil(Math.log2(shuffled.length));
+                const byes = size - shuffled.length;
+                shuffled.slice(0, byes).forEach(player => tournament.matches.push(makeMatch(1, player, null)));
+                const rest = shuffled.slice(byes);
+                for (let i = 0; i < rest.length; i += 2) {
+                    tournament.matches.push(makeMatch(1, rest[i], rest[i + 1]));
+                }
+            } else {
+                tournament.rounds = Math.max(1, Math.ceil(Math.log2(players.length)));
+                pairSwissRound(tournament, 1);
+            }
+        }
+
+        async function createTournament() {
+            if (!canWrite()) return;
+            const form = readForm('gt-');
+            if (!form) return;
+            const tournament = {
+                name: form.name,
+                type: form.type,
+                players: form.players,
+                dbl: form.dbl,
+                matches: [],
+                log: [],
+            };
+            generateTournament(tournament);
+            logChange(tournament, 'Torneo creado (' + form.players.length + ' participantes)');
             try {
-                await setDate(event.target.dataset.dateId, event.target.value);
+                const result = await requestApi('POST', tournament);
+                state.tournaments.unshift(result.torneo);
+                state.currentId = result.torneo.id;
+                saveCurrentId();
+                state.error = '';
+            } catch (error) {
+                showError(error);
+            return;
+            }
+            render();
+        }
+
+        async function applyConfiguration() {
+            const tournament = currentTournament();
+            if (!canAdmin() || !tournament) return;
+            const form = readForm('gt-e');
+            if (!form) return;
+            if (!confirm('Se regenerarán los enfrentamientos y se perderán los resultados. ¿Continuar?')) return;
+            const previous = JSON.parse(JSON.stringify(tournament));
+            tournament.name = form.name;
+            tournament.players = form.players;
+            tournament.dbl = form.dbl;
+            generateTournament(tournament);
+            logChange(tournament, 'Configuración editada; torneo regenerado');
+            await saveTournament(tournament, previous);
+        }
+
+        async function renameTournament() {
+            const tournament = currentTournament();
+            if (!canAdmin() || !tournament) return;
+            const previous = JSON.parse(JSON.stringify(tournament));
+            tournament.name = document.getElementById('gt-enm').value.trim().slice(0, 60) || tournament.name;
+            logChange(tournament, 'Torneo renombrado');
+            await saveTournament(tournament, previous);
+        }
+
+        async function undoRound() {
+            const tournament = currentTournament();
+            if (!canAdmin() || !tournament || tournament.type === 'league') return;
+            const round = lastRound(tournament);
+            if (round <= 1 || !confirm('¿Eliminar la ronda ' + round + '?')) return;
+            const previous = JSON.parse(JSON.stringify(tournament));
+            tournament.matches = tournament.matches.filter(match => match.r !== round);
+            logChange(tournament, 'Ronda ' + round + ' eliminada');
+            await saveTournament(tournament, previous);
+        }
+
+        async function setDate(matchId, value) {
+            const tournament = currentTournament();
+            const match = tournament && tournament.matches.find(item => item.id === matchId);
+            if (!canAdmin() || !match) return;
+            const previous = JSON.parse(JSON.stringify(tournament));
+            match.dt = value || null;
+            logChange(tournament, 'Fecha de ' + match.a + ' vs ' + match.b + ': ' + (value ? formatDate(value) : 'sin fecha'));
+            await saveTournament(tournament, previous);
+        }
+
+        async function saveResult(matchId) {
+            const tournament = currentTournament();
+            const match = tournament && tournament.matches.find(item => item.id === matchId);
+            if (!canWrite() || !match) return;
+            const scoreA = document.getElementById('a' + matchId).value;
+            const scoreB = document.getElementById('b' + matchId).value;
+            if (scoreA === '' || scoreB === '' || !Number.isInteger(+scoreA) || !Number.isInteger(+scoreB)
+                || +scoreA < 0 || +scoreB < 0 || +scoreA > 999 || +scoreB > 999) {
+                alert('Ingresá resultados enteros entre 0 y 999.');
+                return;
+            }
+            if (tournament.type === 'knockout' && +scoreA === +scoreB) {
+                alert('En eliminatoria no puede haber empate.');
+                return;
+            }
+            const previous = JSON.parse(JSON.stringify(tournament));
+            match.sa = +scoreA;
+            match.sb = +scoreB;
+            match.done = true;
+            logChange(tournament, 'Resultado ronda ' + match.r + ': ' + match.a + ' ' + scoreA + ' - ' + scoreB + ' ' + match.b);
+            await saveTournament(tournament, previous);
+        }
+
+        async function nextRound() {
+            if (!canWrite()) return;
+            const tournament = currentTournament();
+            if (!tournament) return;
+            const previous = JSON.parse(JSON.stringify(tournament));
+            const round = lastRound(tournament);
+            const currentMatches = tournament.matches.filter(match => match.r === round);
+            if (tournament.type === 'swiss') {
+                pairSwissRound(tournament, round + 1);
+            } else {
+                const winners = currentMatches.map(winner);
+                for (let i = 0; i < winners.length; i += 2) {
+                    tournament.matches.push(makeMatch(round + 1, winners[i], winners[i + 1]));
+                }
+            }
+            logChange(tournament, 'Ronda ' + (round + 1) + ' generada');
+            await saveTournament(tournament, previous);
+        }
+
+        async function deleteTournament() {
+            const tournament = currentTournament();
+            if (!tournament || !confirm('¿Eliminar este torneo?')) return;
+            try {
+                await requestApi('DELETE', { id: tournament.id });
+                state.tournaments = state.tournaments.filter(item => item.id !== tournament.id);
+                state.error = '';
+            } catch (error) {
+                showError(error);
+                return;
+            }
+            state.currentId = null;
+            saveCurrentId();
+            render();
+        }
+
+        function tournamentTable(tournament) {
+            const swiss = tournament.type === 'swiss';
+            return `<div class="gt-scroll"><table><tr><th>#</th><th>Participante</th><th>PJ</th><th>G</th><th>E</th><th>P</th><th>GF</th><th>GC</th><th>DG</th>${swiss ? '<th>Buch.</th>' : ''}<th>Pts</th></tr>
+            ${standings(tournament).map((row, index) => `<tr><td>${index + 1}</td><td>${escapeHtml(row.name)}</td><td>${row.pj}</td><td>${row.g}</td><td>${row.e}</td><td>${row.p}</td><td>${row.gf}</td><td>${row.gc}</td><td>${row.dif}</td>${swiss ? `<td>${row.bh}</td>` : ''}<td><b>${row.pts}</b></td></tr>`).join('')}</table></div>`;
+        }
+
+        function roundName(tournament, round, count) {
+            if (tournament.type !== 'knockout') return 'Ronda ' + round;
+            return count === 1 ? 'Final' : count === 2 ? 'Semifinales' : count === 4 ? 'Cuartos de final'
+                : count === 8 ? 'Octavos de final' : 'Ronda ' + round;
+        }
+
+        function matchRow(match, editable) {
+            if (match.b === null) {
+                return `<div class="gt-match"><span class="gt-name">${escapeHtml(match.a)}</span><span class="gt-tag">pasa / descansa</span><span class="gt-name"></span></div>`;
+            }
+            const canEditResult = editable && canWrite();
+            const disabled = canEditResult ? '' : 'disabled';
+            return `<div class="gt-match"><span class="gt-name">${escapeHtml(match.a)}</span>
+            <input type="number" min="0" max="999" id="a${match.id}" value="${match.sa ?? ''}" ${disabled}>-<input type="number" min="0" max="999" id="b${match.id}" value="${match.sb ?? ''}" ${disabled}>
+            <span class="gt-name">${escapeHtml(match.b)}</span>${canEditResult ? `<button type="button" data-action="save-result" data-id="${match.id}">${match.done ? '✓' : 'OK'}</button>` : ''}${canAdmin() ? `<input type="datetime-local" class="gt-dt" value="${match.dt || ''}" data-date-id="${match.id}">` : match.dt ? `<span class="gt-tag">${formatDate(match.dt)}</span>` : ''}</div>`;
+        }
+
+        function renderList() {
+            const items = state.tournaments.length
+                ? state.tournaments.map(tournament => `<button type="button" class="gt-card gt-list-item" data-action="open" data-id="${tournament.id}"><span><b>${escapeHtml(tournament.name)}</b> <span class="gt-tag">${names[tournament.type] || ''}</span></span><span class="gt-tag">${tournament.players.length} part.</span></button>`).join('')
+                : '<p class="gt-muted">Todavía no creaste ninguno.</p>';
+            return `<h1>🏆 Gestor de torneos</h1>
+            <p>
+                <span class="gt-tag">${state.error ? 'MySQL no disponible' : 'Guardado en MySQL'}</span>
+                <span class="gt-tag">${state.user ? `Usuario: ${escapeHtml(state.user)}` : 'Sesión autenticada'}</span>
+                <button type="button" class="gt-secondary" data-action="toggle-public">${state.publicView ? 'Salir de vista pública' : 'Vista pública'}</button>
+            </p>
+            ${state.error ? `<p class="gt-error" role="alert">${escapeHtml(state.error)}</p>` : ''}
+            ${canWrite() ? `<div class="gt-card"><b>Nuevo torneo</b>
+                  <label for="gt-nm">Nombre</label>
+                  <input id="gt-nm" placeholder="Copa de verano">
+
+                  <label for="gt-ty">Formato</label><select id="gt-ty"><option value="league">Liga (todos contra todos)</option><option value="knockout">Eliminatoria directa</option><option value="swiss">Sistema suizo</option></select>
+                  <div id="gt-dbw"><label><input type="checkbox" id="gt-db"> Ida y vuelta</label></div>
+
+                  <label for="gt-pl">Participantes (uno por línea)</label><textarea id="gt-pl" placeholder="Ana&#10;Beto&#10;Carla&#10;Diego"></textarea>
+                  <div class="gt-row" style="margin-top:10px"><button type="button" data-action="create">Crear torneo</button></div></div>` : ''}
+          
+                <h2>Mis torneos</h2>${items}`;
+        }
+
+        function renderTournament(tournament) {
+            const round = lastRound(tournament);
+            const lastMatches = tournament.matches.filter(match => match.r === round);
+            const lastDone = lastMatches.every(match => match.done);
+            let canAdvance = false;
+            let isFinished = false;
+            let champion = null;
+            if (tournament.type === 'knockout') {
+                isFinished = lastMatches.length === 1 && lastDone;
+                if (isFinished) champion = winner(lastMatches[0]);
+                canAdvance = lastDone && !isFinished;
+            } else if (tournament.type === 'swiss') {
+                canAdvance = lastDone && round < tournament.rounds;
+                isFinished = lastDone && round >= tournament.rounds;
+                if (isFinished) champion = standings(tournament)[0].name;
+            } else {
+                isFinished = tournament.matches.every(match => match.done);
+                if (isFinished) champion = standings(tournament)[0].name;
+            }
+
+            let html = `${state.error ? `<p class="gt-error" role="alert">${escapeHtml(state.error)}</p>` : ''}<div class="gt-row gt-page-actions" style="justify-content:space-between"><h1>${escapeHtml(tournament.name)} <span class="gt-tag">${names[tournament.type]}</span></h1><span class="gt-row"><span class="gt-tag">${state.user ? `Usuario: ${escapeHtml(state.user)}` : 'Sesión autenticada'}</span><button type="button" class="gt-secondary" data-action="toggle-public">${state.publicView ? 'Salir de vista pública' : 'Vista pública'}</button><button type="button" class="gt-secondary" data-action="back">← Volver</button>${canAdmin() ? `<button type="button" class="gt-danger" data-action="delete">Eliminar</button>` : ''}</span></div>`;
+            if (champion) html += `<div class="gt-winner">🏆 ${tournament.type === 'swiss' || tournament.type === 'league' ? 'Líder / campeón' : 'Campeón'}: ${escapeHtml(champion)}</div>`;
+            if (tournament.type !== 'knockout') {
+                html += `<h2>Clasificación</h2><div class="gt-card">${tournamentTable(tournament)}${tournament.type === 'swiss' ? '<p class="gt-tag" style="display:inline-block">Desempate: Buchholz (suma de puntos de los rivales), luego diferencia de goles</p>' : ''}</div>`;
+            }
+            if (canAdvance && canWrite()) {
+                html += `<div class="gt-row" style="margin:8px 0"><button type="button" data-action="next">${tournament.type === 'swiss' ? 'Generar siguiente ronda' : 'Avanzar a la siguiente fase'}</button></div>`;
+            } else if (!isFinished && tournament.type !== 'league' && canWrite()) {
+                html += '<p class="gt-muted">Cargá todos los resultados de la ronda para avanzar.</p>';
+            }
+            if (canAdmin() && tournament.type !== 'league' && round > 1) {
+                html += '<div class="gt-row" style="margin:8px 0"><button type="button" class="gt-secondary" data-action="undo">↩ Deshacer última ronda</button></div>';
+            }
+            if (canAdmin()) {
+                html += `<details class="gt-card"><summary>⚙ Configuración y participantes</summary>
+                <label for="gt-enm">Nombre</label><input id="gt-enm" value="${escapeHtml(tournament.name)}">
+                <label for="gt-epl">Participantes (uno por línea)</label><textarea id="gt-epl">${escapeHtml(tournament.players.join('\n'))}</textarea>
+                ${tournament.type === 'league' ? `<label><input type="checkbox" id="gt-edb" ${tournament.dbl ? 'checked' : ''}> Ida y vuelta</label>` : ''}
+                <div class="gt-row" style="margin-top:10px"><button type="button" class="gt-secondary" data-action="rename">Solo renombrar</button><button type="button" data-action="apply-config">Guardar y regenerar</button></div></details>`;
+            }
+            const rounds = [...new Set(tournament.matches.map(match => match.r))].sort((a, b) => a - b);
+            const blocks = rounds.map(number => {
+                const matches = tournament.matches.filter(match => match.r === number);
+                const editable = tournament.type === 'league' || number === round;
+                return `<div><h2>${roundName(tournament, number, matches.length)}${tournament.type === 'swiss' ? ` / ${tournament.rounds}` : ''}</h2><div class="gt-card">${matches.map(match => matchRow(match, editable)).join('')}</div></div>`;
+            });
+            html += tournament.type === 'knockout' ? `<div class="gt-columns">${blocks.join('')}</div>` : blocks.reverse().join('');
+            const schedule = tournament.matches.filter(match => match.dt && match.b !== null).sort((a, b) => a.dt.localeCompare(b.dt));
+            if (schedule.length) {
+                html += `<h2>Calendario</h2><div class="gt-card">${schedule.map(match => `<div class="gt-match"><span class="gt-tag">${formatDate(match.dt)}</span><span class="gt-name" style="text-align:left">${escapeHtml(match.a)} vs ${escapeHtml(match.b)}</span><b>${match.done ? match.sa + ' - ' + match.sb : '—'}</b></div>`).join('')}</div>`;
+            }
+            html += `<details class="gt-card"><summary>Historial de cambios (${(tournament.log || []).length})</summary>${(tournament.log || []).slice().reverse().slice(0, 25).map(entry => `<div style="font-size:13px;color:var(--gt-muted)">${formatDate(entry.ts)} — ${escapeHtml(entry.text)}</div>`).join('')}</details>`;
+            return html;
+        }
+
+        function render() {
+            if (state.loading) {
+                app.innerHTML = '<p class="gt-muted">Cargando torneos...</p>';
+                return;
+            }
+            const tournament = currentTournament();
+            app.innerHTML = tournament ? renderTournament(tournament) : renderList();
+        }
+
+            app.addEventListener('click', async event => {
+                const button = event.target.closest('[data-action]');
+                if (!button || !app.contains(button)) return;
+                const id = button.dataset.id;
+                try {
+                    switch (button.dataset.action) {
+                    case 'create':
+                        await createTournament();
+                        break;
+            
+                    case 'open':
+                        state.currentId = id;
+                        saveCurrentId();
+                        state.error = '';
+                        render();
+                        break;
+
+                    case 'back':
+                        state.currentId = null;
+                        saveCurrentId();
+                        state.error = '';
+                        render();
+                        break;
+                    
+                    case 'delete':
+                        await deleteTournament();
+                        break;
+                
+                    case 'toggle-public':
+                        state.publicView = !state.publicView;
+                        render();
+                        break;
+        
+                    case 'next':
+                        await nextRound();
+                        break;
+    
+                    case 'undo':
+                        await undoRound();
+                        break;
+
+                    case 'save-result':
+                        await saveResult(id);
+                        break;
+                    
+                    case 'rename':
+                        await renameTournament();
+                        break;
+                
+                    case 'apply-config':
+                        await applyConfiguration();
+                        break;
+                }
             } catch (error) {
                 showError(error);
             }
-        }
-    });
+        });
 
-    render();
-    loadTournaments();
-})();
+        app.addEventListener('change', async event => {
+            if (event.target.matches('#gt-ty')) {
+                document.getElementById('gt-dbw').style.display = event.target.value === 'league' ? 'block' : 'none';
+            } else if (event.target.matches('[data-date-id]')) {
+                try {
+                    await setDate(event.target.dataset.dateId, event.target.value);
+                } catch (error) {
+                    showError(error);
+                }
+            }
+        });
+
+            render();
+            loadTournaments();
+        })();
 
     </script>
+
+    <script src="js/script.js"></script>
 </body>
 </html>

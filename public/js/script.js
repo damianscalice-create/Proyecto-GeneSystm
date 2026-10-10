@@ -21,21 +21,18 @@ const iconoModo = document.getElementById('iconoModo');
 
 if (botonColor) {
     botonColor.addEventListener('click', () => {
-        const modoOscuroActivo = cuerpo.classList.toggle('modoOscuro');
-        botonColor.setAttribute('aria-label', modoOscuroActivo ? 'Activar modo claro' : 'Activar modo oscuro');
-        botonColor.title = modoOscuroActivo ? 'Activar modo claro' : 'Activar modo oscuro';
-        botonColor.querySelector('span').textContent = modoOscuroActivo ? 'Modo claro' : 'Modo oscuro';
+        const modoClaroActivo = cuerpo.classList.toggle('modoClaro');
+        const modoSiguiente = modoClaroActivo ? 'oscuro' : 'claro';
+        botonColor.setAttribute('aria-label', `Activar modo ${modoSiguiente}`);
+        botonColor.title = `Activar modo ${modoSiguiente}`;
+        botonColor.querySelector('span').textContent = `Modo ${modoSiguiente}`;
 
         if (imagenBombilla) {
-            imagenBombilla.src = modoOscuroActivo
-                ? 'assets/Bombilla_on.png'
-                : 'assets/bombilla.png';
+            imagenBombilla.src = modoClaroActivo ? 'assets/Bombilla_on.png' : 'assets/bombilla.png';
         }
 
         if (iconoModo) {
-            iconoModo.src = modoOscuroActivo
-                ? 'assets/claro.png'
-                : 'assets/oscuro.png';
+            iconoModo.src = modoClaroActivo ? 'assets/oscuro.png' : 'assets/claro.png';
             iconoModo.classList.remove('cambioModo');
             requestAnimationFrame(() => iconoModo.classList.add('cambioModo'));
         }

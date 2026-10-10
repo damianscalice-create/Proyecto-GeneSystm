@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/sobreNosotros.css">
+    <link rel="stylesheet" href="css/header.css">
     <link rel="icon" href="assets/bombilla.png" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">     <!-- La API de la fuente de letra de Jost -->
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>    <!-- La API de la fuente de letra de Jost -->
@@ -11,9 +12,15 @@
     <title>¿Que es GeneSystm?</title>
 </head>
 <body>
-    <button type="button" id="botonAbrir">
-        <img src="assets/bombilla.png" alt="Logo de GeneSys" class="logo">
-    </button>
+    <header class="site-header">
+        <button type="button" id="botonAbrir">
+            <img id="imagenBombilla" src="assets/bombilla.png" alt="Abrir menú">
+        </button>
+        <div class="header-brand">GeneSysTM</div>
+        <button type="button" id="botonUsuario" aria-label="Iniciar sesión" title="Iniciar sesión">
+            <img src="assets/usuario.svg" alt="" class="iconoUsuario">
+        </button>
+    </header>
         
     <nav id="miSidebar" class="sidebar" aria-label="Navegación principal">
         <button id="botonCerrar" class="close-btn" aria-label="Cerrar sidebar" title="Cerrar">&times;</button>
@@ -23,6 +30,12 @@
             <li><a href="sobreNosotros.html">Sobre nosotros</a></li>
             <li><a href="torneos.html">Torneos</a></li>
         </ul>
+
+        <button type="button" id="botonColor" aria-label="Activar modo claro" title="Activar modo claro">
+                <img id="iconoModo" src="assets/claro.png" alt="">
+                <span>Modo claro</span>
+            </button>
+        <p>© 2026 GeneSysTM. Todos los derechos reservados.</p>
     </nav>
 
     <div class="main-content">

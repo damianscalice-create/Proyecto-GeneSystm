@@ -13,8 +13,26 @@
   color-scheme: dark;
 }
 
+body.modoClaro {
+  --torneos-fondo: #f4f3f8;
+  --torneos-superficie: #fff;
+  --torneos-superficie-secundaria: #f0eef6;
+  --torneos-texto: #252331;
+  --torneos-texto-suave: #625f70;
+  --torneos-borde: rgba(45, 36, 72, 0.16);
+  --torneos-acento: #6250b5;
+  --torneos-acento-hover: #4f3d9d;
+  --torneos-error: #bd3444;
+  --torneos-fondo-gradiente: linear-gradient(135deg, #f8f7fb, #efedf6 55%, #e2dcf5);
+  color-scheme: light;
+}
+
 * {
   box-sizing: border-box;
+}
+
+body.modoClaro #botonAbrir {
+  background: rgba(255, 255, 255, 0.82);
 }
 
 html {
@@ -27,6 +45,7 @@ body {
   color: var(--torneos-texto);
   font-family: "Jost", sans-serif;
   background: var(--torneos-fondo-gradiente);
+  transition: color 0.55s ease;
 }
 
 button,
@@ -72,7 +91,7 @@ textarea {
   width: min(280px, 86vw);
   padding: 72px 18px 24px;
   color: var(--torneos-texto);
-  background: #111014;
+  background: var(--torneos-fondo);
   border-right: 1px solid var(--torneos-borde);
   transition: left 0.3s ease;
 }
@@ -119,9 +138,9 @@ textarea {
 
 .gestor-torneos {
   width: min(100% - 32px, 1160px);
-  min-height: 100vh;
+  min-height: calc(100vh - 68px);
   margin: 0 auto;
-  padding: 88px 0 40px;
+  padding: 20px 0 40px;
   color: var(--torneos-texto);
   font-size: 15px;
   line-height: 1.5;
@@ -146,7 +165,7 @@ textarea {
   padding: 16px;
   border: 1px solid var(--torneos-borde);
   border-radius: 14px;
-  background: rgba(27, 25, 34, 0.92);
+  background: var(--torneos-superficie);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.22);
 }
 
