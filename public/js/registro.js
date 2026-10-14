@@ -5,6 +5,7 @@ const inputUsuario = document.getElementById('nombreUsuario');
 const inputEmail = document.getElementById('email');
 const inputPassword = document.getElementById('password');
 const inputPassword2 = document.getElementById('password2');
+const btnCerrarRegistro = document.getElementById('botonCerrarRegistro');
 
 function mostrarMensaje(elemento, texto, tipo) {
     if (!elemento) return;
@@ -61,5 +62,11 @@ if (formularioRegistro) {
     formularioRegistro.addEventListener('submit', (evento) => {
         evento.preventDefault();
         registrarUsuario();
+    });
+}
+
+if (btnCerrarRegistro) {
+    btnCerrarRegistro.addEventListener('click', () => {
+        window.location.href = 'index.html';
     });
 }
