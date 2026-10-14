@@ -10,6 +10,7 @@ CREATE TABLE IF NOT EXISTS torneos (
     deporte VARCHAR(50) NOT NULL,
     detalle VARCHAR(100) NULL,
     cantidad_participantes INT NOT NULL,
+    usuario_id INT NULL,
     fecha_creacion DATETIME DEFAULT CURRENT_TIMESTAMP
 );
  
