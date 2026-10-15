@@ -3,7 +3,7 @@
 $DB_HOST = getenv('DB_HOST') ?: "10.0.0.130";
 $DB_NAME = getenv('DB_NAME') ?: "torneos_db";
 $DB_USER = getenv('DB_USER') ?: "GeneSys";
-$DB_PASS = getenv('DB_PASS') ?: "Quesito53";
+$DB_PASS = getenv('DB_PASS') ?: "";
  
 try {
     $pdo = new PDO(

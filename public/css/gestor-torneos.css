@@ -386,7 +386,7 @@ textarea {
   cursor: pointer;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 765px) {
   .gestor-torneos {
     width: min(100% - 24px, 1160px);
     padding-top: 78px;
