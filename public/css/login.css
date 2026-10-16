@@ -126,6 +126,14 @@ button {
   background: rgba(255, 255, 255, 0.15);
 }
 
+.torneoSinSesion {
+  margin-bottom: 12px;
+  text-align: bottom;
+  color: #d7d3ff;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
 button:hover {
   background: #4d22da;
 }

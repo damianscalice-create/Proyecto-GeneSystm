@@ -47,7 +47,9 @@
         const app = document.getElementById('app');
         if (!app) return;
 
-        const STORAGE_CURRENT = 'torneoCur';
+        const localMode = new URLSearchParams(window.location.search).get('modo') === 'local';
+        const STORAGE_TOURNAMENTS = 'genesystm_torneos_local';
+        const STORAGE_CURRENT = localMode ? 'torneoCur_local' : 'torneoCur';
         const API_URL = 'php/gestorTorneos.php';
         const names = { league: 'Liga', knockout: 'Eliminatoria', swiss: 'Sistema suizo' };
         const state = { tournaments: [], currentId: null, publicView: false, error: '', loading: true, user: '' };
@@ -97,14 +99,21 @@
             }
             return result;
         }
+        function saveLocalTournaments(tournaments) {
+            localStorage.setItem(STORAGE_TOURNAMENTS, JSON.stringify(tournaments));
+        }
         function showError(error) {
             state.error = error instanceof Error ? error.message : 'Ocurrió un error al guardar el torneo.';
             render();
         }
         async function saveTournament(tournament, previous) {
             try {
-                const result = await requestApi('PUT', tournament);
-                Object.assign(tournament, result.torneo);
+                if (localMode) {
+                    saveLocalTournaments(state.tournaments);
+                } else {
+                    const result = await requestApi('PUT', tournament);
+                    Object.assign(tournament, result.torneo);
+                }
                 state.error = '';
                 render();
                 return true;
@@ -117,9 +126,18 @@
         }
         async function loadTournaments() {
             try {
-                const result = await requestApi('GET');
-                state.tournaments = Array.isArray(result.torneos) ? result.torneos : [];
-                state.user = result.usuario || '';
+                if (localMode) {
+                    const saved = localStorage.getItem(STORAGE_TOURNAMENTS);
+                    const tournaments = saved ? JSON.parse(saved) : [];
+                    if (!Array.isArray(tournaments)) {
+                        throw new Error('Los torneos guardados en este navegador no tienen un formato válido.');
+                    }
+                    state.tournaments = tournaments;
+                } else {
+                    const result = await requestApi('GET');
+                    state.tournaments = Array.isArray(result.torneos) ? result.torneos : [];
+                    state.user = result.usuario || '';
+                }
                 if (!state.tournaments.some(tournament => tournament.id === state.currentId)) {
                     state.currentId = null;
                     saveCurrentId();
@@ -294,9 +312,16 @@
             generateTournament(tournament);
             logChange(tournament, 'Torneo creado (' + form.players.length + ' participantes)');
             try {
-                const result = await requestApi('POST', tournament);
-                state.tournaments.unshift(result.torneo);
-                state.currentId = result.torneo.id;
+                if (localMode) {
+                    tournament.id = 'local-' + Date.now() + '-' + uid();
+                    saveLocalTournaments([tournament, ...state.tournaments]);
+                    state.tournaments.unshift(tournament);
+                } else {
+                    const result = await requestApi('POST', tournament);
+                    state.tournaments.unshift(result.torneo);
+                    tournament.id = result.torneo.id;
+                }
+                state.currentId = tournament.id;
                 saveCurrentId();
                 state.error = '';
             } catch (error) {
@@ -397,8 +422,13 @@
             const tournament = currentTournament();
             if (!tournament || !confirm('¿Eliminar este torneo?')) return;
             try {
-                await requestApi('DELETE', { id: tournament.id });
-                state.tournaments = state.tournaments.filter(item => item.id !== tournament.id);
+                const remaining = state.tournaments.filter(item => item.id !== tournament.id);
+                if (localMode) {
+                    saveLocalTournaments(remaining);
+                } else {
+                    await requestApi('DELETE', { id: tournament.id });
+                }
+                state.tournaments = remaining;
                 state.error = '';
             } catch (error) {
                 showError(error);
@@ -438,8 +468,8 @@
                 : '<p class="gt-muted">Todavía no creaste ninguno.</p>';
             return `<h1>🏆 Gestor de torneos</h1>
             <p>
-                <span class="gt-tag">${state.error ? 'MySQL no disponible' : 'Guardado en MySQL'}</span>
-                <span class="gt-tag">${state.user ? `Usuario: ${escapeHtml(state.user)}` : 'Sesión autenticada'}</span>
+                <span class="gt-tag">${localMode ? (state.error ? 'Almacenamiento local no disponible' : 'Guardado en este navegador') : (state.error ? 'MySQL no disponible' : 'Guardado en MySQL')}</span>
+                <span class="gt-tag">${localMode ? 'Modo sin cuenta · solo este navegador' : (state.user ? `Usuario: ${escapeHtml(state.user)}` : 'Sesión autenticada')}</span>
                 <button type="button" class="gt-secondary" data-action="toggle-public">${state.publicView ? 'Salir de vista pública' : 'Vista pública'}</button>
             </p>
             ${state.error ? `<p class="gt-error" role="alert">${escapeHtml(state.error)}</p>` : ''}
@@ -476,7 +506,7 @@
                 if (isFinished) champion = standings(tournament)[0].name;
             }
 
-            let html = `${state.error ? `<p class="gt-error" role="alert">${escapeHtml(state.error)}</p>` : ''}<div class="gt-row gt-page-actions" style="justify-content:space-between"><h1>${escapeHtml(tournament.name)} <span class="gt-tag">${names[tournament.type]}</span></h1><span class="gt-row"><span class="gt-tag">${state.user ? `Usuario: ${escapeHtml(state.user)}` : 'Sesión autenticada'}</span><button type="button" class="gt-secondary" data-action="toggle-public">${state.publicView ? 'Salir de vista pública' : 'Vista pública'}</button><button type="button" class="gt-secondary" data-action="back">← Volver</button>${canAdmin() ? `<button type="button" class="gt-danger" data-action="delete">Eliminar</button>` : ''}</span></div>`;
+            let html = `${state.error ? `<p class="gt-error" role="alert">${escapeHtml(state.error)}</p>` : ''}<div class="gt-row gt-page-actions" style="justify-content:space-between"><h1>${escapeHtml(tournament.name)} <span class="gt-tag">${names[tournament.type]}</span></h1><span class="gt-row"><span class="gt-tag">${localMode ? 'Modo sin cuenta · solo este navegador' : (state.user ? `Usuario: ${escapeHtml(state.user)}` : 'Sesión autenticada')}</span><button type="button" class="gt-secondary" data-action="toggle-public">${state.publicView ? 'Salir de vista pública' : 'Vista pública'}</button><button type="button" class="gt-secondary" data-action="back">← Volver</button>${canAdmin() ? `<button type="button" class="gt-danger" data-action="delete">Eliminar</button>` : ''}</span></div>`;
             if (champion) html += `<div class="gt-winner">🏆 ${tournament.type === 'swiss' || tournament.type === 'league' ? 'Líder / campeón' : 'Campeón'}: ${escapeHtml(champion)}</div>`;
             if (tournament.type !== 'knockout') {
                 html += `<h2>Clasificación</h2><div class="gt-card">${tournamentTable(tournament)}${tournament.type === 'swiss' ? '<p class="gt-tag" style="display:inline-block">Desempate: Buchholz (suma de puntos de los rivales), luego diferencia de goles</p>' : ''}</div>`;
