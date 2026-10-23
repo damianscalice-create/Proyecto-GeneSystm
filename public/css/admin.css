@@ -1,0 +1,24 @@
+body { font-family: sans-serif; margin: 0; background: #f4f6f8; color: #222; }
+.admin-top { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;
+             gap: 10px; background: #1F4E79; color: #fff; padding: 14px 20px; }
+.admin-top h1 { margin: 0; font-size: 20px; }
+.admin-top a { color: #cfe3f7; }
+main { max-width: 1100px; margin: 20px auto; padding: 0 15px; }
+h2 { color: #1F4E79; }
+.admin-stats { display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 20px; }
+.stat { background: #fff; border-radius: 8px; padding: 15px 25px; box-shadow: 0 1px 4px rgba(0,0,0,.1); }
+.stat b { display: block; font-size: 26px; color: #1F4E79; }
+.tabla-wrap { overflow-x: auto; background: #fff; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,.1); }
+table { width: 100%; border-collapse: collapse; }
+th, td { padding: 10px 12px; text-align: left; font-size: 14px; border-bottom: 1px solid #eee; }
+th { background: #1F4E79; color: #fff; }
+.badge-admin { background: #1F4E79; color: #fff; padding: 2px 8px; border-radius: 10px; font-size: 12px; }
+.badge-usuario { background: #ddd; padding: 2px 8px; border-radius: 10px; font-size: 12px; }
+button { cursor: pointer; border: none; border-radius: 5px; padding: 6px 10px; font-size: 13px; margin-right: 4px; }
+.btn-rojo { background: #c00000; color: #fff; }
+.btn-gris { background: #e2e6ea; }
+.mensaje-admin { position: fixed; bottom: 20px; right: 20px; padding: 12px 18px; border-radius: 6px;
+                 color: #fff; opacity: 0; transition: opacity .3s; }
+.mensaje-admin.visible { opacity: 1; }
+.mensaje-admin.exito { background: #2e7d32; }
+.mensaje-admin.error { background: #c00000; }
