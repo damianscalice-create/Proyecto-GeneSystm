@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/php/verificarAdmin.php';
+require_once __DIR__ . '/verificarAdmin.php';
 exigirAdmin($pdo, false);   // si no es admin, redirige a login.html
 ?>
 <!DOCTYPE html>
