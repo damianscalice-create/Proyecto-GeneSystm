@@ -26,17 +26,6 @@ html {
   display: none;
 }
 
-.abrirTorneo{
-  display: inline-block;
-  padding: 12px 24px;
-  text-decoration: none; /*Le saca el subrayado*/
-  color: black
-}
-
-.boton_abrirTorneo{
-  color: #5b4b90
-}
-
 body {
   margin: 0;
   font-family: "Jost", sans-serif;
@@ -198,23 +187,34 @@ body {
   transition: color 0.55s ease;
 }
 
-.boton_abrirTorneo {
+.acciones-torneo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.boton_abrirTorneo,
+.boton_verTorneo {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   background: linear-gradient(135deg, var(--color-primario), #7d6ccf);
+  border: 0;
   border-radius: 1000px;
   padding: 0;
   box-shadow: 0 12px 20px rgba(91, 75, 144, 0.25);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.boton_abrirTorneo:hover {
+.boton_abrirTorneo:hover,
+.boton_verTorneo:hover {
   transform: translateY(-2px);
   box-shadow: 0 16px 26px rgba(91, 75, 144, 0.3);
 }
 
-.abrirTorneo {
+.abrirTorneo,
+.verTorneo {
   display: inline-block;
   padding: 14px 28px;
   text-decoration: none;
