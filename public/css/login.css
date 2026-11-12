@@ -58,6 +58,7 @@ body {
 }
 
 .usuario, 
+.email,
 .contrasenia {
   width: 100%;
   height: 46px;
@@ -69,6 +70,7 @@ body {
 }
 
 .usuario:focus, 
+.email:focus,
 .contrasenia:focus {
   border-color: #8a7dff;
   box-shadow: 0 0 0 3px rgba(138, 125, 255, 0.2);
